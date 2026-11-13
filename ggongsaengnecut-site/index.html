@@ -228,6 +228,7 @@
   .variant-row{ display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap; }
   .variant-row .chip{ font-family:inherit; font-size:13px; font-weight:700; padding:11px 18px; min-height:44px; touch-action:manipulation; -webkit-tap-highlight-color:transparent; position:relative; z-index:5; border-radius:999px; border:2px solid #111; background:#fff; color:#111; cursor:pointer; }
   .variant-row .chip.on{ background:#111; color:#fff; }
+  .flash-overlay, .countdown-num{ pointer-events:none; }
   .gal-canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; touch-action:none; cursor:grab; background:#171c24; }
   .gal-bar{ margin-top:12px; }
   .gal-bar .zoom-row{ display:flex; align-items:center; gap:10px; font-size:13px; margin-bottom:10px; }
@@ -243,7 +244,7 @@
   .ly-opt .variant-row{ margin-top:0; justify-content:flex-start; gap:6px; flex-wrap:wrap; }
   .ly-opt .variant-row .chip{ min-height:36px; padding:6px 12px; font-size:12.5px; border-width:1.5px; }
   .ly-stage{ margin:16px 0 12px; display:flex; justify-content:center; }
-  #lyCanvas{ width:auto; max-width:100%; max-height:48vh; display:block; border-radius:10px; box-shadow:0 2px 14px rgba(0,0,0,.14); touch-action:manipulation; }
+  #lyCanvas{ width:auto; max-width:100%; max-height:48vh; display:block; border-radius:0; box-shadow:0 2px 14px rgba(0,0,0,.14); touch-action:manipulation; }
   .ly-pick{ border:1.5px solid var(--line); border-radius:16px; padding:10px 12px 12px; margin-bottom:4px; }
   .ly-pick .ttl{ font-size:12.5px; font-weight:700; opacity:.7; margin-bottom:8px; }
   .ly-adj{ display:flex; align-items:center; gap:10px; font-size:14px; margin-bottom:6px; }
@@ -254,7 +255,7 @@
   .ly-tray button{ flex:0 0 92px; height:64px; border:2px solid #111; border-radius:10px; background:#fff; overflow:hidden; position:relative; padding:0; font-weight:700; font-size:12px; touch-action:manipulation; }
   .ly-tray button img{ width:100%; height:100%; object-fit:cover; display:block; }
   .ly-tray .del{ position:absolute; top:2px; right:2px; width:20px; height:20px; border-radius:50%; background:#111; color:#fff; font-size:11px; line-height:20px; text-align:center; }
-  .ly-empty{ font-size:12px; opacity:.7; padding:6px 2px; align-self:center; white-space:nowrap; }
+  .ly-empty{ font-size:12px; opacity:.7; padding:6px 2px; align-self:center; flex:1 1 140px; line-height:1.4; }
   .ly-actions{ padding:12px 0 2px; display:flex; gap:10px; }
   .ly-actions .btn{ flex:1; }
   .home-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px; }
@@ -382,7 +383,7 @@
     <div class="frame-grid" id="frameGrid"></div>
     <div class="hidden"><div id="layoutRow"></div><div id="bgRow"></div></div>
     <button class="btn block primary" id="toCameraBtn" style="margin-top:18px">카메라 켜기</button>
-    <button class="btn block" id="toLayoutBtn" style="margin-top:10px">🧩 레이아웃 만들기</button>
+    <button class="btn block" id="toLayoutBtn" style="margin-top:10px">꽁컷사진 만들기</button>
   </section>
 
   <!-- STEP 2: CAMERA / LIVE -->
@@ -485,13 +486,13 @@
     <div class="hint" id="libNote"></div>
     <div class="home-row">
       <button class="btn small" id="resHomeBtn">🏠 처음으로</button>
-      <button class="btn small" id="resLayoutBtn">🧩 레이아웃 만들기</button>
+      <button class="btn small" id="resLayoutBtn">꽁컷사진 만들기</button>
     </div>
     <div class="hint">저장이 안 되면 사진을 꾹 눌러서 '이미지 저장'을 선택해 주세요.</div>
   </section>
 </div>
 
-<div style="margin-top:14px;font-size:10px;color:#6b7a8a;opacity:.8;text-align:center;">버전 11/13 18:30</div>
+<div style="margin-top:14px;font-size:10px;color:#6b7a8a;opacity:.8;text-align:center;">버전 11/13 18:50</div>
 
 <canvas id="captureCanvas" class="hidden"></canvas>
 
@@ -1392,7 +1393,7 @@
       q.onerror = ()=>res();
     }catch(e){ res(); } }); }
     function updateLibCount(){
-      document.getElementById('toLayoutBtn').textContent = '🧩 레이아웃 만들기' + (lib.length ? ' (사진함 ' + lib.length + '장)' : '');
+      document.getElementById('toLayoutBtn').textContent = '꽁컷사진 만들기' + (lib.length ? ' (사진함 ' + lib.length + '장)' : '');
     }
     async function addToLib(dataUrl){
       try{
@@ -1411,7 +1412,7 @@
         el.retakeBtn.textContent = '다시 만들기'; document.getElementById('decoRetakeBtn').textContent = '다시 만들기';
       } else {
         addToLib(url);
-        note.textContent = '사진함에 담았어요! 아래 "레이아웃 만들기"에서 여러 장을 이어 붙일 수 있어요.';
+        note.textContent = '사진함에 담았어요! 아래 "꽁컷사진 만들기"에서 여러 장을 이어 붙일 수 있어요.';
         el.retakeBtn.textContent = '다시 찍기'; document.getElementById('decoRetakeBtn').textContent = '다시 찍기';
       }
     };
