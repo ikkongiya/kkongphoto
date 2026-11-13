@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>꽁생네컷 — 셀프 포토부스</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  @font-face{
+    font-family: 'KimWildGag';
+    src: url("assets/asset1.ttf") format('truetype');
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root{
+    --navy:#111111;
+    --navy-deep:#000000;
+    --white:#FFFFFF;
+    --ink:#111111;
+    --line:#ECECEC;
+    --line-strong:#D4D4D4;
+    --accent:#B89FD9;
+    --accent-text:#7C5FB0;
+    --accent-soft:#EEE6F8;
+    --purple:#B89FD9;
+    --purple-soft:#EEE6F8;
+    --muted:#A8A8A8;
+    --radius-lg:26px;
+    --radius-md:16px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background-color: #F4F6FA;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAIAAAAP3aGbAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAABkKADAAQAAAABAAABkAAAAAAbMW/MAAARSUlEQVR4Ae3UW4/eVR0F4N0DLVBAWnpg5GAMh0AEogXxTLgxXhs/qVdeqImgeABFAiaABYyUHqG0tIWhLZ269wwx6yOsi2dizI/pzP9d77PeWbtOfHnr35+O9z8be3aPO/aMZ4+OA/vGrjHOfD5ePz/27h7z67mj45PNceLyOLR/HD8y9u8Zt9a3v/7atWvcuDleOT3u2Dt+uDG2bo35nYub4y/nxt75oDGub43jh8c37x63tv/py6/G70+O3bvHc0fG0TvHV1vjrQvr5fbsGl/dGs8eGRt3jc0b4zf/HU8dGo8eXL+183Xz1nqVza/G7l3rf989vP3rt8Yb58e5zfWdA3vHjzfWQ/52djx//3jv0vrm3XvHw99Yqf5wclzbWm/ty5vjJxvjyB3rqec3x0dXxrPH1k/+8dR48uC49/b1w/M1374wPrgyfrYxXj49bt+zfncGfuCuMWPMh8xXefPjcfqL8ctHxvWb2wF3jVdOjR/cP/bvHaevjgub45kjY/7oSyfH1Rvr+fOx3zk0vnXPesL8mkqvnxtPHFqxt7YfMN/pGx+PU1+MXzw09m0jz1JOXllFzF9/7N7x5KHFNTuZD/zdR6uv/6eaP/CvGfiz9agfHRuH71zPf/fCeO/ygp1W9x9Yrzvvs5+Pv59fSR45OD67tt71fDu37R4vPLCeduLTcfzYePnUuHR9fPvu8eR961/n18zz0kfj4vWxccd6X/ODsYr7eJzdXM/c+dp5g48dXP6nP18/8NONcWjb+Z0L4/3L613ctW99hO68bUziGfXVM+uZ89XnZ+zgtvx82vzdf5wfj39jPHHfevhvT67Pw8yxf/f4+bcW7DsXx/NHx5sX1stuHFhv7drN8dqZcXnbeX5z8+b41aNja2t8eGVcvj6eObw0fv/h+NHGeq3Jv4N/8dp48YH14fnr2fGDY+PBu1dHX3/dWt+cLc9P1Iy98zWtXnhw/eeHl8eV6+Opw+vbk+Xq/EyOpff9o+Ob287z+/NJ813PZ96zf32GJ+Cfz6y/o52n/eLh9QOT8T+frc//TDUz//yhcXNrvHtpPXy+0/lnNV95flxfPbted96ffrle+ntHl8aJi+Pti2Pf9l/obHbjzvH04fXAk5dX0R9dXfHOXV3gD90zTl0Z//xkYd7YGk/eu6qf73QmuXRtvHZuff+5Y+OeffH25yd8awWeP/big+sH3r803rm0jvlebtuzvjn/uuffzlufrp956MB69Z2P8bT94sb6CO280/mKTxwcjx9cD5z/9MkX409nxtP3jfk5mW92ssw/zPn9+Zc139F8wvyx40dXrTtdzD+9X3+wvTzH1ituv92dNvw/AQIEugUMVnc/0hEgEAIGKzCcBAh0Cxis7n6kI0AgBAxWYDgJEOgWMFjd/UhHgEAIGKzAcBIg0C1gsLr7kY4AgRAwWIHhJECgW8BgdfcjHQECIWCwAsNJgEC3gMHq7kc6AgRCwGAFhpMAgW4Bg9Xdj3QECISAwQoMJwEC3QIGq7sf6QgQCAGDFRhOAgS6BQxWdz/SESAQAgYrMJwECHQLGKzufqQjQCAEDFZgOAkQ6BYwWN39SEeAQAgYrMBwEiDQLWCwuvuRjgCBEDBYgeEkQKBbwGB19yMdAQIhYLACw0mAQLeAweruRzoCBELAYAWGkwCBbgGD1d2PdAQIhIDBCgwnAQLdAgarux/pCBAIAYMVGE4CBLoFDFZ3P9IRIBACBiswnAQIdAsYrO5+pCNAIAQMVmA4CRDoFjBY3f1IR4BACBiswHASINAtYLC6+5GOAIEQMFiB4SRAoFvAYHX3Ix0BAiFgsALDSYBAt4DB6u5HOgIEQsBgBYaTAIFuAYPV3Y90BAiEgMEKDCcBAt0CBqu7H+kIEAgBgxUYTgIEugUMVnc/0hEgEAIGKzCcBAh0Cxis7n6kI0AgBAxWYDgJEOgWMFjd/UhHgEAIGKzAcBIg0C1gsLr7kY4AgRAwWIHhJECgW8BgdfcjHQECIWCwAsNJgEC3gMHq7kc6AgRCwGAFhpMAgW4Bg9Xdj3QECISAwQoMJwEC3QIGq7sf6QgQCAGDFRhOAgS6BQxWdz/SESAQAgYrMJwECHQLGKzufqQjQCAEDFZgOAkQ6BYwWN39SEeAQAgYrMBwEiDQLWCwuvuRjgCBEDBYgeEkQKBbwGB19yMdAQIhYLACw0mAQLeAweruRzoCBELAYAWGkwCBbgGD1d2PdAQIhIDBCgwnAQLdAgarux/pCBAIAYMVGE4CBLoFDFZ3P9IRIBACBiswnAQIdAsYrO5+pCNAIAQMVmA4CRDoFjBY3f1IR4BACBiswHASINAtYLC6+5GOAIEQMFiB4SRAoFvAYHX3Ix0BAiFgsALDSYBAt4DB6u5HOgIEQsBgBYaTAIFuAYPV3Y90BAiEgMEKDCcBAt0CBqu7H+kIEAgBgxUYTgIEugUMVnc/0hEgEAIGKzCcBAh0Cxis7n6kI0AgBAxWYDgJEOgWMFjd/UhHgEAIGKzAcBIg0C1gsLr7kY4AgRAwWIHhJECgW8BgdfcjHQECIWCwAsNJgEC3gMHq7kc6AgRCwGAFhpMAgW4Bg9Xdj3QECISAwQoMJwEC3QIGq7sf6QgQCAGDFRhOAgS6BQxWdz/SESAQAgYrMJwECHQLGKzufqQjQCAEDFZgOAkQ6BYwWN39SEeAQAgYrMBwEiDQLWCwuvuRjgCBEDBYgeEkQKBbwGB19yMdAQIhYLACw0mAQLeAweruRzoCBELAYAWGkwCBbgGD1d2PdAQIhIDBCgwnAQLdAgarux/pCBAIAYMVGE4CBLoFDFZ3P9IRIBACBiswnAQIdAsYrO5+pCNAIAQMVmA4CRDoFjBY3f1IR4BACBiswHASINAtYLC6+5GOAIEQMFiB4SRAoFvAYHX3Ix0BAiFgsALDSYBAt4DB6u5HOgIEQsBgBYaTAIFuAYPV3Y90BAiEgMEKDCcBAt0CBqu7H+kIEAgBgxUYTgIEugUMVnc/0hEgEAIGKzCcBAh0Cxis7n6kI0AgBAxWYDgJEOgWMFjd/UhHgEAIGKzAcBIg0C1gsLr7kY4AgRAwWIHhJECgW8BgdfcjHQECIWCwAsNJgEC3gMHq7kc6AgRCwGAFhpMAgW4Bg9Xdj3QECISAwQoMJwEC3QIGq7sf6QgQCAGDFRhOAgS6BQxWdz/SESAQAgYrMJwECHQLGKzufqQjQCAEDFZgOAkQ6BYwWN39SEeAQAgYrMBwEiDQLWCwuvuRjgCBEDBYgeEkQKBbwGB19yMdAQIhYLACw0mAQLeAweruRzoCBELAYAWGkwCBbgGD1d2PdAQIhIDBCgwnAQLdAgarux/pCBAIAYMVGE4CBLoFDFZ3P9IRIBACBiswnAQIdAsYrO5+pCNAIAQMVmA4CRDoFjBY3f1IR4BACBiswHASINAtYLC6+5GOAIEQMFiB4SRAoFvAYHX3Ix0BAiFgsALDSYBAt4DB6u5HOgIEQsBgBYaTAIFuAYPV3Y90BAiEgMEKDCcBAt0CBqu7H+kIEAgBgxUYTgIEugUMVnc/0hEgEAIGKzCcBAh0Cxis7n6kI0AgBAxWYDgJEOgWMFjd/UhHgEAIGKzAcBIg0C1gsLr7kY4AgRAwWIHhJECgW8BgdfcjHQECIWCwAsNJgEC3gMHq7kc6AgRCwGAFhpMAgW4Bg9Xdj3QECISAwQoMJwEC3QIGq7sf6QgQCAGDFRhOAgS6BQxWdz/SESAQAgYrMJwECHQLGKzufqQjQCAEDFZgOAkQ6BYwWN39SEeAQAgYrMBwEiDQLWCwuvuRjgCBEDBYgeEkQKBbwGB19yMdAQIhYLACw0mAQLeAweruRzoCBELAYAWGkwCBbgGD1d2PdAQIhIDBCgwnAQLdAgarux/pCBAIAYMVGE4CBLoFDFZ3P9IRIBACBiswnAQIdAsYrO5+pCNAIAQMVmA4CRDoFjBY3f1IR4BACBiswHASINAtYLC6+5GOAIEQMFiB4SRAoFvAYHX3Ix0BAiFgsALDSYBAt4DB6u5HOgIEQsBgBYaTAIFuAYPV3Y90BAiEgMEKDCcBAt0CBqu7H+kIEAgBgxUYTgIEugUMVnc/0hEgEAIGKzCcBAh0Cxis7n6kI0AgBAxWYDgJEOgWMFjd/UhHgEAIGKzAcBIg0C1gsLr7kY4AgRAwWIHhJECgW8BgdfcjHQECIWCwAsNJgEC3gMHq7kc6AgRCwGAFhpMAgW4Bg9Xdj3QECISAwQoMJwEC3QIGq7sf6QgQCAGDFRhOAgS6BQxWdz/SESAQAgYrMJwECHQLGKzufqQjQCAEDFZgOAkQ6BYwWN39SEeAQAgYrMBwEiDQLWCwuvuRjgCBEDBYgeEkQKBbwGB19yMdAQIhYLACw0mAQLeAweruRzoCBELAYAWGkwCBbgGD1d2PdAQIhIDBCgwnAQLdAgarux/pCBAIAYMVGE4CBLoFDFZ3P9IRIBACBiswnAQIdAsYrO5+pCNAIAQMVmA4CRDoFjBY3f1IR4BACBiswHASINAtYLC6+5GOAIEQMFiB4SRAoFvAYHX3Ix0BAiFgsALDSYBAt4DB6u5HOgIEQsBgBYaTAIFuAYPV3Y90BAiEgMEKDCcBAt0CBqu7H+kIEAgBgxUYTgIEugUMVnc/0hEgEAIGKzCcBAh0Cxis7n6kI0AgBAxWYDgJEOgWMFjd/UhHgEAIGKzAcBIg0C1gsLr7kY4AgRAwWIHhJECgW8BgdfcjHQECIWCwAsNJgEC3gMHq7kc6AgRCwGAFhpMAgW4Bg9Xdj3QECISAwQoMJwEC3QIGq7sf6QgQCAGDFRhOAgS6BQxWdz/SESAQAgYrMJwECHQLGKzufqQjQCAEDFZgOAkQ6BYwWN39SEeAQAgYrMBwEiDQLWCwuvuRjgCBEDBYgeEkQKBbwGB19yMdAQIhYLACw0mAQLeAweruRzoCBELAYAWGkwCBbgGD1d2PdAQIhIDBCgwnAQLdAgarux/pCBAIAYMVGE4CBLoFDFZ3P9IRIBACBiswnAQIdAsYrO5+pCNAIAQMVmA4CRDoFjBY3f1IR4BACBiswHASINAtYLC6+5GOAIEQMFiB4SRAoFvAYHX3Ix0BAiFgsALDSYBAt4DB6u5HOgIEQsBgBYaTAIFuAYPV3Y90BAiEgMEKDCcBAt0CBqu7H+kIEAgBgxUYTgIEugUMVnc/0hEgEAIGKzCcBAh0Cxis7n6kI0AgBAxWYDgJEOgWMFjd/UhHgEAIGKzAcBIg0C1gsLr7kY4AgRAwWIHhJECgW8BgdfcjHQECIWCwAsNJgEC3gMHq7kc6AgRCwGAFhpMAgW4Bg9Xdj3QECISAwQoMJwEC3QIGq7sf6QgQCAGDFRhOAgS6BQxWdz/SESAQAgYrMJwECHQLGKzufqQjQCAEDFZgOAkQ6BYwWN39SEeAQAgYrMBwEiDQLWCwuvuRjgCBEDBYgeEkQKBbwGB19yMdAQIhYLACw0mAQLeAweruRzoCBELAYAWGkwCBbgGD1d2PdAQIhIDBCgwnAQLdAgarux/pCBAIAYMVGE4CBLoFDFZ3P9IRIBACBiswnAQIdAsYrO5+pCNAIAQMVmA4CRDoFjBY3f1IR4BACBiswHASINAtYLC6+5GOAIEQMFiB4SRAoFvAYHX3Ix0BAiFgsALDSYBAt4DB6u5HOgIEQsBgBYaTAIFuAYPV3Y90BAiEgMEKDCcBAt0CBqu7H+kIEAgBgxUYTgIEugUMVnc/0hEgEAIGKzCcBAh0Cxis7n6kI0AgBAxWYDgJEOgWMFjd/UhHgEAIGKzAcBIg0C1gsLr7kY4AgRAwWIHhJECgW8BgdfcjHQECIWCwAsNJgEC3gMHq7kc6AgRCwGAFhpMAgW4Bg9Xdj3QECISAwQoMJwEC3QL/AxTNaQE4OI+BAAAAAElFTkSuQmCC");
+    background-repeat: repeat;
+    background-size: 160px 160px;
+    color: var(--ink);
+    font-family:'Noto Sans KR', sans-serif;
+    min-height:100vh;
+    padding: 28px 14px 56px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  #stage-result .row{ position:sticky; bottom:8px; z-index:5; background:var(--white); padding:8px 0; }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  .card{
+    position:relative;
+    width:100%;
+    max-width:520px;
+    background: var(--white);
+    border-radius: 30px;
+    padding: 30px 22px 28px;
+  }
+
+  .card.cam-mode .mascot{ display:none; }
+  .mascot{
+    display:block;
+    width:100%;
+    max-width:360px;
+    margin:0 auto 18px;
+  }
+  .eyebrow{
+    display:table;
+    margin:0 auto 10px;
+    padding:6px 15px;
+    background: var(--accent-soft);
+    color: var(--navy);
+    border-radius:999px;
+    font-weight:700;
+    font-size:11.5px;
+    letter-spacing:0.02em;
+  }
+  h1.brand{
+    font-family:'KimWildGag','Noto Sans KR',sans-serif;
+    font-weight:400;
+    font-size:36px;
+    text-align:center;
+    margin:0 0 22px;
+    color: var(--navy);
+  }
+  h1.brand .c-ggong{ color: var(--accent-text); }
+
+  .steps{
+    display:flex;
+    justify-content:center;
+    gap:7px;
+    margin-bottom:20px;
+    font-size:11px;
+    font-weight:700;
+    flex-wrap:wrap;
+  }
+  .step{
+    padding:6px 11px;
+    border:1.5px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--muted);
+    background: var(--white);
+    transition: all .2s ease;
+  }
+  .step.active{ color: var(--white); background: #111111; border-color: #111111; }
+  .step.done{ color: var(--muted); background: var(--white); border-color: var(--line-strong); }
+
+  /* upload panel */
+  .panel{
+    background: var(--white);
+    border:1.5px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 22px 18px;
+  }
+  .panel p.desc{ font-size:13.5px; line-height:1.7; color: var(--ink); margin:0 0 16px; text-align:center; }
+  .frame-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .frame-card{
+    border: 2px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    padding: 10px;
+    text-align:center;
+    cursor:pointer;
+    transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    background: var(--white);
+  }
+  .frame-card:hover{ border-color: var(--accent); transform: translateY(-1px); }
+  .frame-card.selected{ border-color: var(--navy); background: var(--purple-soft); }
+  .frame-card .thumb{
+    width:100%; height:92px; object-fit:contain; border-radius:8px; margin-bottom:8px;
+    background:repeating-conic-gradient(#eef0f4 0% 25%, #ffffff 0% 50%) 50%/14px 14px;
+  }
+  .frame-card .thumb.none{
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; color: var(--muted);
+  }
+  .frame-card .label{ font-size:12px; font-weight:700; color: var(--navy); }
+
+  /* camera housing — clean, simple */
+  .housing{
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 10px;
+    border: 1.5px solid var(--line);
+  }
+  .viewfinder{
+    position:relative;
+    width:100%;
+    aspect-ratio: 3/4;
+    border-radius: 18px;
+    overflow:hidden;
+    background:#171c24;
+    border: 2px solid var(--navy);
+  }
+  .viewfinder video{
+    width:100%; height:100%; object-fit:cover;
+    display:block;
+  }
+  .viewfinder video.mirror{ transform: scaleX(-1); }
+  .frame-overlay{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:fill;
+    pointer-events:none;
+  }
+  .hud{
+    position:absolute; inset:0;
+    pointer-events:none;
+    font-size:10.5px;
+    color: var(--white);
+  }
+  .hud .corner{
+    position:absolute; width:9px; height:9px; border-radius:50%;
+    background: var(--accent);
+    border:2px solid rgba(255,255,255,0.8);
+  }
+  .hud .tl{top:10px;left:10px;}
+  .hud .tr{top:10px;right:10px;}
+  .hud .bl{bottom:10px;left:10px;}
+  .hud .br{bottom:10px;right:10px;}
+  .hud .readout-top{ display:none; }
+  .hud .readout-top span{ background: rgba(22,35,59,0.55); padding:3px 9px; border-radius:999px; font-weight:700; }
+  .hud .readout-bottom{ position:absolute; bottom:12px; left:16px; right:16px; text-align:center; }
+  .hud .readout-bottom span{ background: rgba(22,35,59,0.55); padding:6px 13px; border-radius:999px; font-size:12px; }
+  .rec-dot{ display:inline-block; width:6px;height:6px;border-radius:50%; background:var(--accent-text); margin-right:5px; animation: pulse 1.4s infinite; vertical-align:middle;}
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  .countdown-num{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'KimWildGag','Noto Sans KR',sans-serif;
+    font-weight:400;
+    font-size:104px;
+    color: var(--white);
+    text-shadow: 0 0 24px rgba(0,0,0,0.5);
+  }
+  .countdown-num.pop{ animation: popnum .5s ease; }
+  @keyframes popnum{ 0%{ transform:scale(0.4); opacity:0; } 60%{ transform:scale(1.15); opacity:1; } 100%{ transform:scale(1); } }
+  .flash-overlay{
+    position:absolute; inset:0; background: var(--white); opacity:0;
+  }
+  .flash-overlay.fire{ animation: flashfire .35s ease-out; }
+  @keyframes flashfire{ 0%{opacity:0.92;} 100%{opacity:0;} }
+
+  /* controls */
+  .variant-row{ display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap; }
+  .variant-row .chip{ font-family:inherit; font-size:13px; font-weight:700; padding:11px 18px; min-height:44px; touch-action:manipulation; -webkit-tap-highlight-color:transparent; position:relative; z-index:5; border-radius:999px; border:2px solid #111; background:#fff; color:#111; cursor:pointer; }
+  .variant-row .chip.on{ background:#111; color:#fff; }
+  .cam-tools{ margin-top:10px; flex-wrap:wrap; gap:10px; }
+  #stage-camera .controls:not(.cam-tools){ display:grid; grid-template-columns:1fr auto 1fr; gap:12px; }
+  #stage-camera .controls:not(.cam-tools) #backToFrameBtn{ justify-self:start; }
+  .controls{ display:flex; justify-content:center; align-items:center; gap:16px; margin-top:18px; }
+  .shutter-btn{
+    width:72px; height:72px; border-radius:50%;
+    background: var(--white);
+    border: 3px solid var(--navy);
+    cursor:pointer;
+    font-size:26px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 8px 18px -8px rgba(184,159,217,0.6);
+    transition: transform .15s ease;
+    flex-shrink:0;
+    padding:0;
+  }
+  .shutter-btn:hover{ transform: scale(1.06); }
+  .shutter-btn:active{ transform: scale(0.92); }
+  .shutter-btn:disabled{ opacity:0.4; cursor:not-allowed; transform:none; }
+  .shutter-icon{ width:40px; height:40px; object-fit:contain; pointer-events:none; }
+
+  /* generic buttons */
+  .btn{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    padding: 11px 18px;
+    border-radius: 999px;
+    border:1.5px solid #111111;
+    background: var(--white);
+    color: #111111;
+    cursor:pointer;
+    transition: all .15s ease;
+  }
+  .btn:hover{ background: var(--purple-soft); border-color: var(--purple); color: #111111; }
+  .btn:focus-visible{ outline:2px solid var(--purple); outline-offset:2px; }
+  .btn.primary{
+    background: #111111; color: var(--white); border-color: #111111;
+  }
+  .btn.primary:hover{ background: #000000; }
+  .btn.block{ width:100%; text-align:center; }
+  .btn.small{ font-size:11.5px; padding:9px 13px; flex-shrink:0; }
+
+  /* print slip */
+  .slip{
+    background: var(--white);
+    color: var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 20px 18px 22px;
+    position:relative;
+    border: 1.5px solid var(--line);
+  }
+  .slip .stamp{
+    position:absolute; top:12px; right:12px;
+    width:48px; height:48px; border-radius:50%;
+    background: var(--purple-soft) url("assets/asset2.png") center/135% no-repeat;
+    border: 2px solid var(--white);
+  }
+  .slip img.result{ width:100%; border-radius:14px; display:block; margin-bottom:14px; border:1.5px solid var(--line); }
+  .slip .meta{ font-size:10.5px; color: var(--muted); display:flex; justify-content:space-between; margin-bottom:14px; font-weight:700; }
+  .qr-block{ display:flex; gap:14px; align-items:center; background: var(--purple-soft); border-radius: var(--radius-md); padding:14px; }
+  .qr-block #qrcode{ background:var(--white); padding:6px; border-radius:10px; flex-shrink:0; line-height:0; border:1.5px solid var(--line); }
+  .qr-block .qr-caption .t1{ font-family:'KimWildGag','Noto Sans KR',sans-serif; font-weight:400; font-size:17px; color:var(--navy); margin-bottom:4px; }
+  .qr-block .qr-caption .t2{ font-size:11px; color:var(--muted); line-height:1.6; }
+
+  .row{ display:flex; gap:10px; margin-top:16px; }
+  .row .btn{ flex:1; }
+
+  .hint{
+    font-size:11px;
+    color: var(--muted);
+    text-align:center;
+    margin-top:16px;
+    line-height:1.8;
+  }
+  .error-box{
+    border:1.5px solid var(--accent);
+    background: var(--accent-soft);
+    color: var(--navy);
+    border-radius: var(--radius-md);
+    padding:14px 16px;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:14px;
+  }
+  .hidden{ display:none !important; }
+  input[type=file]{ display:none; }
+
+  .receive-badge{
+    display:table;
+    margin:0 auto 6px;
+    padding:5px 14px;
+    background: var(--accent-soft);
+    color: var(--navy);
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+  }
+  @media (max-width:520px){
+    body{ padding:10px 6px 36px; }
+    .card{ padding:20px 10px 22px; border-radius:24px; }
+    .housing{ padding:6px; }
+    .panel{ padding:18px 12px; }
+    .viewfinder{ border-radius:14px; }
+  }
+</style>
+</head>
+<body>
+<div class="card wrap">
+  <img class="mascot" src="assets/asset3.png" alt="꽁생네컷에 오신 걸 환영합니다">
+
+  <div class="steps" id="steps">
+    <div class="step" data-step="1">1. 프레임</div>
+    <div class="step" data-step="2">2. 촬영</div>
+    <div class="step" data-step="3">3. 저장</div>
+  </div>
+
+  <!-- STEP 1: FRAME UPLOAD -->
+  <section id="stage-upload" class="panel">
+    <p class="desc">여기서 원하는 프레임을 골라주세요❤︎</p>
+    <div class="frame-grid" id="frameGrid"></div>
+    <button class="btn block primary" id="toCameraBtn">카메라 켜기</button>
+  </section>
+
+  <!-- STEP 2: CAMERA / LIVE -->
+  <section id="stage-camera" class="hidden">
+    <div id="cameraError" class="error-box hidden"></div>
+    <div class="housing">
+      <div class="viewfinder" id="viewfinder">
+        <video id="video" class="mirror" autoplay playsinline muted></video>
+        <img id="frameOverlay" class="frame-overlay hidden" alt="">
+        <div class="hud">
+          <div class="corner tl"></div><div class="corner tr"></div>
+          <div class="corner bl"></div><div class="corner br"></div>
+          <div class="readout-top"><span><span class="rec-dot"></span>LIVE</span><span id="clock">00:00:00</span></div>
+          <div class="readout-bottom" id="hudHint">프레임 안에 쏙 들어와 주세요</div>
+        </div>
+        <div class="countdown-num hidden" id="countdownNum"></div>
+        <div class="flash-overlay" id="flashOverlay"></div>
+      </div>
+    </div>
+    <div class="variant-row hidden" id="variantRow"></div>
+    <div class="controls">
+      <button class="btn" id="backToFrameBtn">← 프레임 선택</button>
+      <button class="shutter-btn" id="shutterBtn" aria-label="촬영하기" disabled><img class="shutter-icon" src="assets/asset4.png" alt=""></button>
+    </div>
+    <div class="controls cam-tools">
+      <button class="btn small" id="flipCameraBtn">🔄 앞/뒤 카메라 전환</button>
+      <button class="btn small hidden" id="wideBtn">🔭 광각 OFF</button>
+    </div>
+    <div class="hint">셔터를 누르면 3초 뒤 자동으로 촬영돼요.</div>
+  </section>
+
+  <!-- STEP 3+4: REVIEW & QR -->
+  <section id="stage-result" class="hidden">
+    <div class="slip">
+      <img class="result" id="resultImg" alt="촬영된 사진">
+      <div class="meta"><span id="resultTime">--</span><span>GGONGSAENGNECUT</span></div>
+    </div>
+    <div class="row">
+      <button class="btn" id="retakeBtn">다시 찍기</button>
+      <button class="btn primary" id="downloadBtn">이 기기에 저장</button>
+    </div>
+    <div class="hint">저장이 안 되면 사진을 꾹 눌러서 '이미지 저장'을 선택해 주세요.</div>
+  </section>
+</div>
+
+<div style="margin-top:14px;font-size:10px;color:#6b7a8a;opacity:.8;text-align:center;">버전 11/13 13:20</div>
+
+<canvas id="captureCanvas" class="hidden"></canvas>
+
+<script src="frames.js"></script>
+<script>
+(function(){
+  let CAPTURE_W = 1080, CAPTURE_H = 1440;
+  initBooth();
+
+  async function downloadImage(dataUrl){
+    const name = 'ggongsaengnecut_' + Date.now() + '.jpg';
+    let blob;
+    try{ blob = await (await fetch(dataUrl)).blob(); }catch(e){ blob = null; }
+    // phones: open the share sheet so the photo can go straight to the gallery
+    if(blob && navigator.canShare){
+      try{
+        const file = new File([blob], name, {type:'image/jpeg'});
+        if(navigator.canShare({files:[file]})){
+          await navigator.share({files:[file]});
+          return;
+        }
+      }catch(e){
+        if(e && e.name === 'AbortError') return; // user closed the sheet
+      }
+    }
+    const a = document.createElement('a');
+    a.href = blob ? URL.createObjectURL(blob) : dataUrl;
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  // flood-fills the connected white region of a frame image to transparent,
+  // so the design's "photo window" becomes a real alpha cutout.
+  function maskWhiteToTransparent(img){
+    const w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, w, h);
+    const imageData = ctx.getImageData(0,0,w,h);
+    const data = imageData.data;
+    // frames that already have a real transparent window are used as-is,
+    // so white parts of the artwork (dresses, highlights...) are not punched out
+    let clear = 0;
+    for(let i=3; i<data.length; i+=4){ if(data[i] < 10) clear++; }
+    if(clear > w*h*0.02) return canvas;
+    const visited = new Uint8Array(w*h);
+    const stack = [];
+    function seedAt(fx, fy){
+      const x = Math.max(0, Math.min(w-1, Math.round(fx)));
+      const y = Math.max(0, Math.min(h-1, Math.round(fy)));
+      stack.push(y*w+x);
+    }
+    [0.3,0.4,0.5,0.6,0.7].forEach(fy=>{
+      const y = fy*h;
+      for(let x=0; x<w; x+=12){ seedAt(x,y); }
+    });
+    while(stack.length){
+      const idx = stack.pop();
+      if(visited[idx]) continue;
+      const p = idx*4;
+      if(!(data[p]>=245 && data[p+1]>=245 && data[p+2]>=245 && data[p+3]>0)) continue;
+      visited[idx]=1;
+      data[p+3]=0;
+      const x = idx % w, y = (idx / w)|0;
+      if(x>0) stack.push(idx-1);
+      if(x<w-1) stack.push(idx+1);
+      if(y>0) stack.push(idx-w);
+      if(y<h-1) stack.push(idx+w);
+    }
+    ctx.putImageData(imageData,0,0);
+    return canvas;
+  }
+
+  function initBooth(){
+    const el = {
+      stageUpload: document.getElementById('stage-upload'),
+      stageCamera: document.getElementById('stage-camera'),
+      stageResult: document.getElementById('stage-result'),
+      steps: document.querySelectorAll('.step'),
+      frameGrid: document.getElementById('frameGrid'),
+      toCameraBtn: document.getElementById('toCameraBtn'),
+      backToFrameBtn: document.getElementById('backToFrameBtn'),
+      viewfinder: document.getElementById('viewfinder'),
+      video: document.getElementById('video'),
+      frameOverlay: document.getElementById('frameOverlay'),
+      shutterBtn: document.getElementById('shutterBtn'),
+      flipCameraBtn: document.getElementById('flipCameraBtn'),
+      wideBtn: document.getElementById('wideBtn'),
+      cameraError: document.getElementById('cameraError'),
+      countdownNum: document.getElementById('countdownNum'),
+      flashOverlay: document.getElementById('flashOverlay'),
+      hudHint: document.getElementById('hudHint'),
+      clock: document.getElementById('clock'),
+      canvas: document.getElementById('captureCanvas'),
+      resultImg: document.getElementById('resultImg'),
+      resultTime: document.getElementById('resultTime'),
+      retakeBtn: document.getElementById('retakeBtn'),
+      downloadBtn: document.getElementById('downloadBtn'),
+    };
+
+    let frameMaskedCanvas = null;
+    let stream = null;
+    let currentFacing = 'user';
+    let wideOn = false, wideMode = null, wideZoomMin = 1, wideDeviceId = null, curDeviceId = null;
+    let lastResultDataUrl = null;
+    let clockTimer = null;
+    let currentCuts = 1;
+    let currentStack = false; // true: cuts are stacked top/bottom, false: side by side
+    let cutIndex = 0;
+    let shotCanvases = [];
+
+    function shotSize(){
+      if(currentCuts <= 1) return [CAPTURE_W, CAPTURE_H];
+      return currentStack ? [CAPTURE_W, CAPTURE_H/currentCuts] : [CAPTURE_W/currentCuts, CAPTURE_H];
+    }
+
+    function setStep(n){
+      el.steps.forEach(s=>{
+        const num = +s.dataset.step;
+        s.classList.toggle('active', num===n);
+        s.classList.toggle('done', num<n);
+      });
+    }
+
+    // preset frames the user has designed — add more entries here later
+    const FRAME_OPTIONS = (window.FRAMES || []).map(f=>({
+      id:f.id, label:f.label, dataUrl:f.file, cuts:f.cuts, stack:f.stack, variants:f.variants
+    }));
+
+    function markSelectedCard(id){
+      el.frameGrid.querySelectorAll('.frame-card').forEach(c=>{
+        c.classList.toggle('selected', c.dataset.id === id);
+      });
+    }
+
+    let currentOpt = null, currentVariant = 0;
+    const variantCache = {};
+    function loadVariantCanvas(file, cb){
+      if(variantCache[file]){ cb(variantCache[file]); return; }
+      const im = new Image();
+      im.onload = ()=>{ variantCache[file] = maskWhiteToTransparent(im); cb(variantCache[file]); };
+      im.src = file;
+    }
+    const overlayUrlCache = new WeakMap();
+    function renderVariantRow(){
+      const row = document.getElementById('variantRow');
+      const vs = currentOpt && currentOpt.variants;
+      if(!vs || vs.length < 2){ row.classList.add('hidden'); row.innerHTML=''; return; }
+      row.classList.remove('hidden');
+      row.innerHTML = '';
+      vs.forEach((v,i)=>{
+        const b = document.createElement('button');
+        b.className = 'chip' + (i===currentVariant ? ' on' : '');
+        b.textContent = v.label;
+        b.addEventListener('click', ()=>{
+          currentVariant = i;
+          row.querySelectorAll('.chip').forEach((c,j)=> c.classList.toggle('on', j===i));
+          loadVariantCanvas(v.file, cv=>{
+            if(currentVariant !== i) return;
+            frameMaskedCanvas = cv;
+            updateFrameOverlayForCut();
+          });
+        });
+        row.appendChild(b);
+      });
+    }
+
+    function selectFrameOption(opt){
+      currentOpt = opt; currentVariant = 0;
+      if(opt.variants){ opt.variants.forEach(v=> loadVariantCanvas(v.file, ()=>{})); }
+      if(opt.variants && opt.variants.length){ opt = Object.assign({}, opt, {dataUrl: opt.variants[0].file}); }
+      currentCuts = opt.cuts || 1;
+      currentStack = !!opt.stack;
+      if(!opt.dataUrl){
+        frameMaskedCanvas = null;
+        CAPTURE_W = 1080; CAPTURE_H = 1440;
+        markSelectedCard(opt.id);
+        return;
+      }
+      const img = new Image();
+      img.onload = ()=>{
+        frameMaskedCanvas = maskWhiteToTransparent(img);
+        CAPTURE_W = frameMaskedCanvas.width;
+        CAPTURE_H = frameMaskedCanvas.height;
+        markSelectedCard(opt.id);
+      };
+      img.src = opt.dataUrl;
+    }
+
+    function renderFrameGrid(){
+      el.frameGrid.innerHTML = '';
+      FRAME_OPTIONS.forEach(opt=>{
+        const card = document.createElement('div');
+        card.className = 'frame-card';
+        card.dataset.id = opt.id;
+        card.setAttribute('tabindex','0');
+        card.setAttribute('role','button');
+        const labelText = opt.label + ' (' + (opt.cuts || 1) + '컷)';
+        card.setAttribute('aria-label', labelText);
+        if(opt.dataUrl){
+          card.innerHTML = '<img class="thumb" src="'+opt.dataUrl+'" alt="'+opt.label+'"><div class="label">'+labelText+'</div>';
+        } else {
+          card.innerHTML = '<div class="thumb none">🚫</div><div class="label">'+labelText+'</div>';
+        }
+        card.addEventListener('click', ()=> selectFrameOption(opt));
+        card.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' ') selectFrameOption(opt); });
+        el.frameGrid.appendChild(card);
+      });
+    }
+
+    renderFrameGrid();
+    selectFrameOption(FRAME_OPTIONS[0]);
+
+    // ---- Frame selection → camera ----
+    el.toCameraBtn.addEventListener('click', goToCamera);
+
+    // ---- Camera ----
+    function updateFrameOverlayForCut(){
+      if(!frameMaskedCanvas){
+        el.frameOverlay.classList.add('hidden');
+      } else if(currentCuts > 1){
+        const [sw, sh] = shotSize();
+        const slice = document.createElement('canvas');
+        slice.width = sw; slice.height = sh;
+        slice.getContext('2d').drawImage(frameMaskedCanvas, currentStack ? 0 : cutIndex*sw, currentStack ? cutIndex*sh : 0, sw, sh, 0, 0, sw, sh);
+        el.frameOverlay.src = slice.toDataURL('image/png');
+        el.frameOverlay.classList.remove('hidden');
+      } else {
+        let u = overlayUrlCache.get(frameMaskedCanvas);
+        if(!u){ u = frameMaskedCanvas.toDataURL('image/png'); overlayUrlCache.set(frameMaskedCanvas, u); }
+        el.frameOverlay.src = u;
+        el.frameOverlay.classList.remove('hidden');
+      }
+      if(currentCuts > 1){
+        el.hudHint.textContent = (cutIndex+1) + '컷 / ' + currentCuts + '컷 — 자리를 잡아주세요';
+      } else {
+        el.hudHint.textContent = '프레임 안에 쏙 들어와 주세요';
+      }
+    }
+
+    async function goToCamera(){
+      el.stageUpload.classList.add('hidden');
+      el.stageCamera.classList.remove('hidden');
+      document.querySelector('.card').classList.add('cam-mode');
+      setStep(2);
+      wideOn = false;
+      cutIndex = 0;
+      shotCanvases = [];
+      renderVariantRow();
+      updateFrameOverlayForCut();
+      const [sw, sh] = shotSize();
+      el.viewfinder.style.aspectRatio = sw + ' / ' + sh;
+      startClock();
+      await startCamera();
+    }
+
+    el.backToFrameBtn.addEventListener('click', ()=>{
+      stopCamera();
+      el.stageCamera.classList.add('hidden');
+      el.stageUpload.classList.remove('hidden');
+      document.querySelector('.card').classList.remove('cam-mode');
+      setStep(1);
+    });
+
+    el.flipCameraBtn.addEventListener('click', async ()=>{
+      currentFacing = currentFacing === 'user' ? 'environment' : 'user';
+      wideOn = false;
+      el.video.classList.toggle('mirror', currentFacing === 'user');
+      stopCamera();
+      await startCamera();
+    });
+
+    el.wideBtn.addEventListener('click', async ()=>{
+      wideOn = !wideOn;
+      if(wideMode === 'zoom'){
+        const track = stream && stream.getVideoTracks()[0];
+        try{ await track.applyConstraints({advanced:[{zoom: wideOn ? wideZoomMin : 1}]}); }
+        catch(e){ wideOn = !wideOn; }
+        updateWideBtn();
+      } else if(wideMode === 'device'){
+        stopCamera();
+        await startCamera(wideOn ? wideDeviceId : null);
+      }
+    });
+    function updateWideBtn(){
+      el.wideBtn.classList.toggle('hidden', !wideMode);
+      el.wideBtn.textContent = '🔭 광각 ' + (wideOn ? 'ON' : 'OFF');
+    }
+    async function setupWide(track){
+      wideMode = null;
+      try{
+        const caps = (track.getCapabilities && track.getCapabilities()) || {};
+        if(caps.zoom && caps.zoom.min < 1){ wideMode = 'zoom'; wideZoomMin = caps.zoom.min; }
+      }catch(e){}
+      if(!wideMode){
+        try{
+          const devs = (await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='videoinput');
+          const w = devs.find(d=>/ultra|wide|0\.5|광각/i.test(d.label) && !/front|전면|user/i.test(d.label) && !/^back (dual )?camera$/i.test(d.label));
+          const isBackNow = currentFacing === 'environment';
+          if(w && isBackNow){ wideMode = 'device'; wideDeviceId = w.deviceId; }
+        }catch(e){}
+      }
+      updateWideBtn();
+    }
+
+    async function startCamera(deviceId){
+      el.cameraError.classList.add('hidden');
+      el.shutterBtn.disabled = true;
+      const [curSw, curSh] = shotSize();
+      const landscape = curSw >= curSh;
+      try{
+        stream = await navigator.mediaDevices.getUserMedia({
+          video:Object.assign(
+            deviceId ? {deviceId:{exact:deviceId}} : {facingMode: currentFacing},
+            {
+              width:{ideal: landscape ? 1920 : 1440},
+              height:{ideal: landscape ? 1440 : 1920}
+            }
+          ),
+          audio:false
+        });
+        el.video.srcObject = stream;
+        el.shutterBtn.disabled = false;
+        const track = stream.getVideoTracks()[0];
+        const st = (track.getSettings && track.getSettings()) || {};
+        if(st.facingMode){ currentFacing = st.facingMode === 'environment' ? 'environment' : 'user'; }
+        el.video.classList.toggle('mirror', currentFacing === 'user');
+        if(deviceId){ wideOn = true; }
+        await setupWide(track);
+        if(deviceId){ wideMode = 'device'; wideDeviceId = deviceId; updateWideBtn(); }
+      }catch(err){
+        el.cameraError.textContent = '카메라를 켤 수 없어요. 브라우저의 카메라 권한을 허용했는지 확인하고, 다시 시도해 주세요. (' + (err.message||err.name) + ')';
+        el.cameraError.classList.remove('hidden');
+      }
+    }
+    function stopCamera(){
+      if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; }
+    }
+
+    function startClock(){
+      if(clockTimer) clearInterval(clockTimer);
+      const tick = ()=>{ el.clock.textContent = new Date().toLocaleTimeString('ko-KR', {hour12:false}); };
+      tick();
+      clockTimer = setInterval(tick, 1000);
+    }
+
+    // ---- Shutter / countdown / capture ----
+    el.shutterBtn.addEventListener('click', ()=>{
+      el.shutterBtn.disabled = true;
+      runCountdown(3, capturePhoto);
+    });
+
+    function runCountdown(n, done){
+      el.countdownNum.classList.remove('hidden');
+      el.countdownNum.textContent = n;
+      el.countdownNum.classList.remove('pop');
+      void el.countdownNum.offsetWidth;
+      el.countdownNum.classList.add('pop');
+      if(n<=0){
+        el.countdownNum.classList.add('hidden');
+        done();
+        return;
+      }
+      setTimeout(()=> runCountdown(n-1, done), 700);
+    }
+
+    function drawCover(ctx, video, dx, dy, dw, dh){
+      const vw = video.videoWidth, vh = video.videoHeight;
+      const targetRatio = dw/dh, srcRatio = vw/vh;
+      let sx,sy,sw,sh;
+      if(srcRatio > targetRatio){
+        sh = vh; sw = vh*targetRatio; sx = (vw-sw)/2; sy=0;
+      } else {
+        sw = vw; sh = vw/targetRatio; sx=0; sy=(vh-sh)/2;
+      }
+      ctx.drawImage(video, sx,sy,sw,sh, dx,dy,dw,dh);
+    }
+
+    function capturePhoto(){
+      el.flashOverlay.classList.remove('fire'); void el.flashOverlay.offsetWidth;
+      el.flashOverlay.classList.add('fire');
+
+      const [sw, sh] = shotSize();
+      const shotCanvas = document.createElement('canvas');
+      shotCanvas.width = sw; shotCanvas.height = sh;
+      const ctx = shotCanvas.getContext('2d');
+      ctx.save();
+      if(currentFacing === 'user'){
+        ctx.translate(sw,0);
+        ctx.scale(-1,1);
+      }
+      drawCover(ctx, el.video, 0,0,sw,sh);
+      ctx.restore();
+      shotCanvases[cutIndex] = shotCanvas;
+
+      if(cutIndex + 1 < currentCuts){
+        cutIndex++;
+        updateFrameOverlayForCut();
+        el.shutterBtn.disabled = false;
+        return;
+      }
+
+      composeFinalImage();
+      setTimeout(showResult, 300);
+    }
+
+    function composeFinalImage(){
+      const canvas = el.canvas;
+      canvas.width = CAPTURE_W; canvas.height = CAPTURE_H;
+      const ctx = canvas.getContext('2d');
+      const [sw, sh] = shotSize();
+      shotCanvases.forEach((sc, i)=>{
+        ctx.drawImage(sc, currentStack ? 0 : i*sw, currentStack ? i*sh : 0, sw, sh);
+      });
+      if(frameMaskedCanvas){
+        ctx.drawImage(frameMaskedCanvas, 0,0,CAPTURE_W,CAPTURE_H);
+      }
+      lastResultDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+    }
+
+    function showResult(){
+      stopCamera();
+      el.stageCamera.classList.add('hidden');
+      el.stageResult.classList.remove('hidden');
+      setStep(3);
+      el.resultImg.src = lastResultDataUrl;
+      el.resultTime.textContent = new Date().toLocaleString('ko-KR');
+      window.scrollTo(0,0);
+    }
+
+    el.retakeBtn.addEventListener('click', ()=>{
+      el.stageResult.classList.add('hidden');
+      el.stageCamera.classList.remove('hidden');
+      setStep(2);
+      wideOn = false;
+      cutIndex = 0;
+      shotCanvases = [];
+      renderVariantRow();
+      updateFrameOverlayForCut();
+      const [sw, sh] = shotSize();
+      el.viewfinder.style.aspectRatio = sw + ' / ' + sh;
+      startClock();
+      startCamera();
+    });
+
+    el.downloadBtn.addEventListener('click', ()=>{
+      if(lastResultDataUrl) downloadImage(lastResultDataUrl);
+    });
+
+    setStep(1);
+  }
+})();
+</script>
+</body>
+</html>
