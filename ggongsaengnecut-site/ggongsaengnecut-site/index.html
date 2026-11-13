@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>꽁생네컷 — 셀프 포토부스</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  @font-face{
+    font-family: 'KimWildGag';
+    src: url("assets/asset1.ttf") format('truetype');
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root{
+    --navy:#111111;
+    --navy-deep:#000000;
+    --white:#FFFFFF;
+    --ink:#111111;
+    --line:#ECECEC;
+    --line-strong:#D4D4D4;
+    --accent:#B89FD9;
+    --accent-text:#7C5FB0;
+    --accent-soft:#EEE6F8;
+    --purple:#B89FD9;
+    --purple-soft:#EEE6F8;
+    --muted:#A8A8A8;
+    --radius-lg:26px;
+    --radius-md:16px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background-color: #F4F6FA;
+    background-image: url("data:image/png;base64,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");
+    background-repeat: repeat;
+    background-size: 160px 160px;
+    color: var(--ink);
+    font-family:'Noto Sans KR', sans-serif;
+    min-height:100vh;
+    padding: 28px 14px 56px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  #stage-result .row{ flex-wrap:wrap; }
+  #stage-result .row{ position:sticky; bottom:8px; z-index:5; background:var(--white); padding:8px 0; }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  .card{
+    position:relative;
+    width:100%;
+    max-width:520px;
+    background: var(--white);
+    border-radius: 30px;
+    padding: 30px 22px 28px;
+  }
+
+  .card.cam-mode .mascot{ display:none; }
+  .mascot{
+    display:block;
+    width:100%;
+    max-width:360px;
+    margin:0 auto 18px;
+  }
+  .eyebrow{
+    display:table;
+    margin:0 auto 10px;
+    padding:6px 15px;
+    background: var(--accent-soft);
+    color: var(--navy);
+    border-radius:999px;
+    font-weight:700;
+    font-size:11.5px;
+    letter-spacing:0.02em;
+  }
+  h1.brand{
+    font-family:'KimWildGag','Noto Sans KR',sans-serif;
+    font-weight:400;
+    font-size:36px;
+    text-align:center;
+    margin:0 0 22px;
+    color: var(--navy);
+  }
+  h1.brand .c-ggong{ color: var(--accent-text); }
+
+  .steps{
+    display:flex;
+    justify-content:center;
+    gap:7px;
+    margin-bottom:20px;
+    font-size:11px;
+    font-weight:700;
+    flex-wrap:wrap;
+  }
+  .step{
+    padding:6px 11px;
+    border:1.5px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--muted);
+    background: var(--white);
+    transition: all .2s ease;
+  }
+  .step.active{ color: var(--white); background: #111111; border-color: #111111; }
+  .step.done{ color: var(--muted); background: var(--white); border-color: var(--line-strong); }
+
+  /* upload panel */
+  .panel{
+    background: var(--white);
+    border:1.5px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 22px 18px;
+  }
+  .panel p.desc{ font-size:13.5px; line-height:1.7; color: var(--ink); margin:0 0 16px; text-align:center; }
+  .frame-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .frame-card{
+    border: 2px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    padding: 10px;
+    text-align:center;
+    cursor:pointer;
+    transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    background: var(--white);
+  }
+  .frame-card:hover{ border-color: var(--accent); transform: translateY(-1px); }
+  .frame-card.selected{ border-color: var(--navy); background: var(--purple-soft); }
+  .frame-card .thumb{
+    width:100%; height:92px; object-fit:contain; border-radius:8px; margin-bottom:8px;
+    background:repeating-conic-gradient(#eef0f4 0% 25%, #ffffff 0% 50%) 50%/14px 14px;
+  }
+  .frame-card .thumb.none{
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; color: var(--muted);
+  }
+  .frame-card .label{ font-size:12px; font-weight:700; color: var(--navy); }
+
+  /* camera housing — clean, simple */
+  .housing{
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 10px;
+    border: 1.5px solid var(--line);
+  }
+  .viewfinder{
+    position:relative;
+    width:100%;
+    aspect-ratio: 3/4;
+    border-radius: 18px;
+    overflow:hidden;
+    background:#171c24;
+    border: 2px solid var(--navy);
+  }
+  .viewfinder video{
+    width:100%; height:100%; object-fit:cover;
+    display:block;
+  }
+  .viewfinder video.mirror{ transform: scaleX(-1); }
+  .frame-overlay{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:fill;
+    pointer-events:none;
+  }
+  .hud{
+    position:absolute; inset:0;
+    pointer-events:none;
+    font-size:10.5px;
+    color: var(--white);
+  }
+  .hud .corner{
+    position:absolute; width:9px; height:9px; border-radius:50%;
+    background: var(--accent);
+    border:2px solid rgba(255,255,255,0.8);
+  }
+  .hud .tl{top:10px;left:10px;}
+  .hud .tr{top:10px;right:10px;}
+  .hud .bl{bottom:10px;left:10px;}
+  .hud .br{bottom:10px;right:10px;}
+  .hud .readout-top{ display:none; }
+  .hud .readout-top span{ background: rgba(22,35,59,0.55); padding:3px 9px; border-radius:999px; font-weight:700; }
+  .hud .readout-bottom{ position:absolute; bottom:12px; left:16px; right:16px; text-align:center; }
+  .hud .readout-bottom span{ background: rgba(22,35,59,0.55); padding:6px 13px; border-radius:999px; font-size:12px; }
+  .rec-dot{ display:inline-block; width:6px;height:6px;border-radius:50%; background:var(--accent-text); margin-right:5px; animation: pulse 1.4s infinite; vertical-align:middle;}
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  .countdown-num{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'KimWildGag','Noto Sans KR',sans-serif;
+    font-weight:400;
+    font-size:104px;
+    color: var(--white);
+    text-shadow: 0 0 24px rgba(0,0,0,0.5);
+  }
+  .countdown-num.pop{ animation: popnum .5s ease; }
+  @keyframes popnum{ 0%{ transform:scale(0.4); opacity:0; } 60%{ transform:scale(1.15); opacity:1; } 100%{ transform:scale(1); } }
+  .flash-overlay{
+    position:absolute; inset:0; background: var(--white); opacity:0;
+  }
+  .flash-overlay.fire{ animation: flashfire .35s ease-out; }
+  @keyframes flashfire{ 0%{opacity:0.92;} 100%{opacity:0;} }
+
+  /* controls */
+  #stage-upload #toCameraBtn{ margin-top:20px; }
+  .deco-wrap{ background:#fff; border:1.5px solid var(--line); border-radius:14px; overflow:hidden; line-height:0; }
+  #decoCanvas{ width:100%; height:auto; display:block; touch-action:none; user-select:none; -webkit-user-select:none; }
+  .deco-tools{ display:flex; justify-content:center; gap:10px; margin-top:12px; }
+  .deco-tools .btn{ min-height:44px; font-size:13px; }
+  .sticker-tray{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; padding:10px; border:1.5px solid var(--line); border-radius:14px; background:#fff; max-height:230px; overflow:auto; }
+  .sticker-tray button{ border:1.5px solid var(--line); background:#fff; border-radius:12px; padding:6px; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; cursor:pointer; touch-action:manipulation; }
+  .sticker-tray img{ max-width:100%; max-height:100%; object-fit:contain; pointer-events:none; }
+  .text-panel{ margin-top:12px; padding:12px; border:1.5px solid var(--line); border-radius:14px; background:#fff; }
+  .text-panel input{ width:100%; font-size:16px; padding:11px 12px; border:2px solid #111; border-radius:12px; font-family:inherit; }
+  .text-panel .variant-row{ margin-top:10px; }
+  .text-panel .variant-row .chip{ min-height:38px; padding:7px 14px; }
+  .deco-note{ font-size:11.5px; color:var(--muted); text-align:center; margin-top:12px; line-height:1.5; }
+  #stage-decorate .row{ position:sticky; bottom:8px; z-index:5; background:var(--white); padding:8px 0; }
+  .layout-desc{ margin-top:18px; font-size:13px; }
+  .variant-row{ display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap; }
+  .variant-row .chip{ font-family:inherit; font-size:13px; font-weight:700; padding:11px 18px; min-height:44px; touch-action:manipulation; -webkit-tap-highlight-color:transparent; position:relative; z-index:5; border-radius:999px; border:2px solid #111; background:#fff; color:#111; cursor:pointer; }
+  .variant-row .chip.on{ background:#111; color:#fff; }
+  .gal-canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; touch-action:none; cursor:grab; background:#171c24; }
+  .gal-bar{ margin-top:12px; }
+  .gal-bar .zoom-row{ display:flex; align-items:center; gap:10px; font-size:13px; margin-bottom:10px; }
+  .gal-bar input[type=range]{ flex:1; accent-color:#8B5CF6; }
+  .gal-bar .gal-hint{ font-size:12px; text-align:center; opacity:.7; margin-bottom:8px; }
+  .gal-mode .readout-bottom, .gal-mode .readout-top{ display:none; }
+  .gal-mode .live-only{ display:none !important; }
+  .ly-tray{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; }
+  .ly-tray button{ aspect-ratio:3/2; border:2px solid #111; border-radius:10px; background:#fff; overflow:hidden; position:relative; padding:0; font-weight:700; font-size:12px; touch-action:manipulation; }
+  .ly-tray button img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .ly-tray .del{ position:absolute; top:2px; right:2px; width:20px; height:20px; border-radius:50%; background:#111; color:#fff; font-size:11px; line-height:20px; text-align:center; }
+  #lyCanvas{ width:100%; display:block; border-radius:12px; border:2px solid #111; touch-action:manipulation; }
+  .ly-empty{ grid-column:1/-1; font-size:12px; opacity:.7; text-align:center; padding:6px; }
+  .home-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px; }
+  .cam-tools{ margin-top:10px; flex-wrap:wrap; gap:10px; }
+  #stage-camera .controls:not(.cam-tools){ display:grid; grid-template-columns:1fr auto 1fr; gap:12px; }
+  #stage-camera .controls:not(.cam-tools) #backToFrameBtn{ justify-self:start; }
+  .controls{ display:flex; justify-content:center; align-items:center; gap:16px; margin-top:18px; }
+  .shutter-btn{
+    width:72px; height:72px; border-radius:50%;
+    background: var(--white);
+    border: 3px solid var(--navy);
+    cursor:pointer;
+    font-size:26px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 8px 18px -8px rgba(184,159,217,0.6);
+    transition: transform .15s ease;
+    flex-shrink:0;
+    padding:0;
+  }
+  .shutter-btn:hover{ transform: scale(1.06); }
+  .shutter-btn:active{ transform: scale(0.92); }
+  .shutter-btn:disabled{ opacity:0.4; cursor:not-allowed; transform:none; }
+  .shutter-icon{ width:40px; height:40px; object-fit:contain; pointer-events:none; }
+
+  /* generic buttons */
+  .btn{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    padding: 11px 18px;
+    border-radius: 999px;
+    border:1.5px solid #111111;
+    background: var(--white);
+    color: #111111;
+    cursor:pointer;
+    transition: all .15s ease;
+  }
+  .btn:hover{ background: var(--purple-soft); border-color: var(--purple); color: #111111; }
+  .btn:focus-visible{ outline:2px solid var(--purple); outline-offset:2px; }
+  .btn.primary{
+    background: #111111; color: var(--white); border-color: #111111;
+  }
+  .btn.primary:hover{ background: #000000; }
+  .btn.block{ width:100%; text-align:center; }
+  .btn.small{ font-size:11.5px; padding:9px 13px; flex-shrink:0; }
+
+  /* print slip */
+  .slip{
+    background: var(--white);
+    color: var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 20px 18px 22px;
+    position:relative;
+    border: 1.5px solid var(--line);
+  }
+  .slip .stamp{
+    position:absolute; top:12px; right:12px;
+    width:48px; height:48px; border-radius:50%;
+    background: var(--purple-soft) url("assets/asset2.png") center/135% no-repeat;
+    border: 2px solid var(--white);
+  }
+  .slip img.result{ width:100%; border-radius:14px; display:block; margin-bottom:14px; border:1.5px solid var(--line); }
+  .slip .meta{ font-size:10.5px; color: var(--muted); display:flex; justify-content:space-between; margin-bottom:14px; font-weight:700; }
+  .qr-block{ display:flex; gap:14px; align-items:center; background: var(--purple-soft); border-radius: var(--radius-md); padding:14px; }
+  .qr-block #qrcode{ background:var(--white); padding:6px; border-radius:10px; flex-shrink:0; line-height:0; border:1.5px solid var(--line); }
+  .qr-block .qr-caption .t1{ font-family:'KimWildGag','Noto Sans KR',sans-serif; font-weight:400; font-size:17px; color:var(--navy); margin-bottom:4px; }
+  .qr-block .qr-caption .t2{ font-size:11px; color:var(--muted); line-height:1.6; }
+
+  .row{ display:flex; gap:10px; margin-top:16px; }
+  .row .btn{ flex:1; }
+
+  .hint{
+    font-size:11px;
+    color: var(--muted);
+    text-align:center;
+    margin-top:16px;
+    line-height:1.8;
+  }
+  .error-box{
+    border:1.5px solid var(--accent);
+    background: var(--accent-soft);
+    color: var(--navy);
+    border-radius: var(--radius-md);
+    padding:14px 16px;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:14px;
+  }
+  .hidden{ display:none !important; }
+  input[type=file]{ display:none; }
+
+  .receive-badge{
+    display:table;
+    margin:0 auto 6px;
+    padding:5px 14px;
+    background: var(--accent-soft);
+    color: var(--navy);
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+  }
+  @media (max-width:520px){
+    body{ padding:10px 6px 36px; }
+    .card{ padding:20px 10px 22px; border-radius:24px; }
+    .housing{ padding:6px; }
+    .panel{ padding:18px 12px; }
+    .viewfinder{ border-radius:14px; }
+  }
+</style>
+</head>
+<body>
+<div class="card wrap">
+  <img class="mascot" src="assets/asset3.png" alt="꽁생네컷에 오신 걸 환영합니다">
+
+  <div class="steps" id="steps">
+    <div class="step" data-step="1">1. 프레임</div>
+    <div class="step" data-step="2">2. 촬영</div>
+    <div class="step" data-step="3">3. 꾸미기</div>
+    <div class="step" data-step="4">4. 저장</div>
+  </div>
+
+  <!-- STEP 1: FRAME UPLOAD -->
+  <section id="stage-upload" class="panel">
+    <p class="desc">여기서 원하는 프레임을 골라주세요❤︎</p>
+    <div class="frame-grid" id="frameGrid"></div>
+    <div class="hidden"><div id="layoutRow"></div><div id="bgRow"></div></div>
+    <button class="btn block primary" id="toCameraBtn" style="margin-top:18px">카메라 켜기</button>
+    <button class="btn block" id="toLayoutBtn" style="margin-top:10px">🧩 레이아웃 만들기</button>
+  </section>
+
+  <!-- STEP 2: CAMERA / LIVE -->
+  <section id="stage-camera" class="hidden">
+    <div id="cameraError" class="error-box hidden"></div>
+    <div class="housing">
+      <div class="viewfinder" id="viewfinder">
+        <video id="video" class="mirror" autoplay playsinline muted></video>
+        <canvas id="galCanvas" class="gal-canvas hidden"></canvas>
+        <img id="frameOverlay" class="frame-overlay hidden" alt="">
+        <div class="hud">
+          <div class="corner tl"></div><div class="corner tr"></div>
+          <div class="corner bl"></div><div class="corner br"></div>
+          <div class="readout-top"><span><span class="rec-dot"></span>LIVE</span><span id="clock">00:00:00</span></div>
+          <div class="readout-bottom" id="hudHint">프레임 안에 쏙 들어와 주세요</div>
+        </div>
+        <div class="countdown-num hidden" id="countdownNum"></div>
+        <div class="flash-overlay" id="flashOverlay"></div>
+      </div>
+    </div>
+    <div class="variant-row hidden" id="variantRow"></div>
+    <div class="gal-bar hidden" id="galBar">
+      <div class="gal-hint">드래그로 위치 · 슬라이더로 확대/축소</div>
+      <div class="zoom-row"><span>－</span><input type="range" id="galZoom" min="1" max="3" step="0.01" value="1"><span>＋</span></div>
+      <div class="controls" style="margin-top:0">
+        <button class="btn" id="galCancelBtn">취소</button>
+        <button class="btn primary" id="galUseBtn">이 사진 사용</button>
+      </div>
+    </div>
+    <div class="controls live-only">
+      <button class="btn" id="backToFrameBtn">← 프레임 선택</button>
+      <button class="shutter-btn" id="shutterBtn" aria-label="촬영하기" disabled><img class="shutter-icon" src="assets/asset4.png" alt=""></button>
+    </div>
+    <div class="controls cam-tools live-only">
+      <button class="btn small" id="galleryBtn">🖼️ 갤러리에서 선택</button>
+      <input type="file" id="galleryInput" accept="image/*" class="hidden">
+      <button class="btn small" id="flipCameraBtn">🔄 앞/뒤 카메라 전환</button>
+      <button class="btn small hidden" id="wideBtn">🔭 광각 OFF</button>
+    </div>
+    <div class="hint live-only">셔터를 누르면 3초 뒤 자동으로 촬영돼요.</div>
+  </section>
+
+  <!-- LAYOUT MAKER -->
+  <section id="stage-layout" class="hidden">
+    <p class="desc">찍어둔 사진을 골라서 한 장으로 이어 붙여요. 칸을 눌러 사진을 넣어 주세요.</p>
+    <div class="variant-row" id="lyLayoutRow"></div>
+    <div class="variant-row" id="lyRatioRow"></div>
+    <div class="variant-row" id="lyBgRow"></div>
+    <canvas id="lyCanvas"></canvas>
+    <div class="ly-tray hidden" id="lyTray"></div>
+    <input type="file" id="lyFile" accept="image/*" class="hidden">
+    <div class="controls">
+      <button class="btn" id="lyBackBtn">← 처음으로</button>
+      <button class="btn primary" id="lyDoneBtn" disabled>완성!</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: DECORATE -->
+  <section id="stage-decorate" class="hidden">
+    <div class="deco-wrap"><canvas id="decoCanvas"></canvas></div>
+    <div class="variant-row hidden" id="decoBgRow"></div>
+    <div class="deco-tools">
+      <button class="btn small" id="addTextBtn">✏️ 글씨 추가</button>
+      <button class="btn small" id="addStickerBtn">⭐ 스티커</button>
+    </div>
+    <div class="variant-row hidden" id="stickerTabs"></div>
+    <div class="sticker-tray hidden" id="stickerTray"></div>
+    <div class="text-panel hidden" id="textPanel">
+      <input type="text" id="textInput" maxlength="30" placeholder="글씨를 입력하세요">
+      <div class="variant-row" id="textColorRow"></div>
+      <div class="variant-row" id="textFontRow"></div>
+    </div>
+    <div class="deco-note">스티커와 글씨를 눌러서 선택하면 옮기고(드래그), 오른쪽 아래 동그라미로 크기·회전, 왼쪽 위 ✕로 지울 수 있어요. 두 손가락으로 키우고 돌릴 수도 있어요.</div>
+    <div class="row deco-row">
+      <button class="btn" id="decoRetakeBtn">다시 찍기</button>
+      <button class="btn primary" id="decoDoneBtn">완료!</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: REVIEW & SAVE -->
+  <section id="stage-result" class="hidden">
+    <div class="slip">
+      <img class="result" id="resultImg" alt="촬영된 사진">
+      <div class="meta"><span id="resultTime">--</span><span>GGONGSAENGNECUT</span></div>
+    </div>
+    <div class="row">
+      <button class="btn" id="retakeBtn">다시 찍기</button>
+      <button class="btn" id="backDecoBtn">꾸미기 수정</button>
+      <button class="btn primary" id="downloadBtn">저장하기</button>
+    </div>
+    <div class="hint" id="libNote"></div>
+    <div class="home-row">
+      <button class="btn small" id="resHomeBtn">🏠 처음으로</button>
+      <button class="btn small" id="resLayoutBtn">🧩 레이아웃 만들기</button>
+    </div>
+    <div class="hint">저장이 안 되면 사진을 꾹 눌러서 '이미지 저장'을 선택해 주세요.</div>
+  </section>
+</div>
+
+<div style="margin-top:14px;font-size:10px;color:#6b7a8a;opacity:.8;text-align:center;">버전 11/13 17:20</div>
+
+<canvas id="captureCanvas" class="hidden"></canvas>
+
+<script src="frames.js"></script>
+<script src="stickers.js"></script>
+<script>
+(function(){
+  let CAPTURE_W = 1080, CAPTURE_H = 1440;
+  initBooth();
+
+  async function downloadImage(dataUrl){
+    const name = 'ggongsaengnecut_' + Date.now() + '.jpg';
+    let blob;
+    try{ blob = await (await fetch(dataUrl)).blob(); }catch(e){ blob = null; }
+    // phones: open the share sheet so the photo can go straight to the gallery
+    if(blob && navigator.canShare){
+      try{
+        const file = new File([blob], name, {type:'image/jpeg'});
+        if(navigator.canShare({files:[file]})){
+          await navigator.share({files:[file]});
+          return;
+        }
+      }catch(e){
+        if(e && e.name === 'AbortError') return; // user closed the sheet
+      }
+    }
+    const a = document.createElement('a');
+    a.href = blob ? URL.createObjectURL(blob) : dataUrl;
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  // flood-fills the connected white region of a frame image to transparent,
+  // so the design's "photo window" becomes a real alpha cutout.
+  function maskWhiteToTransparent(img){
+    const w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, w, h);
+    const imageData = ctx.getImageData(0,0,w,h);
+    const data = imageData.data;
+    // frames that already have a real transparent window are used as-is,
+    // so white parts of the artwork (dresses, highlights...) are not punched out
+    let clear = 0;
+    for(let i=3; i<data.length; i+=4){ if(data[i] < 10) clear++; }
+    if(clear > w*h*0.02) return canvas;
+    const visited = new Uint8Array(w*h);
+    const stack = [];
+    function seedAt(fx, fy){
+      const x = Math.max(0, Math.min(w-1, Math.round(fx)));
+      const y = Math.max(0, Math.min(h-1, Math.round(fy)));
+      stack.push(y*w+x);
+    }
+    [0.3,0.4,0.5,0.6,0.7].forEach(fy=>{
+      const y = fy*h;
+      for(let x=0; x<w; x+=12){ seedAt(x,y); }
+    });
+    while(stack.length){
+      const idx = stack.pop();
+      if(visited[idx]) continue;
+      const p = idx*4;
+      if(!(data[p]>=245 && data[p+1]>=245 && data[p+2]>=245 && data[p+3]>0)) continue;
+      visited[idx]=1;
+      data[p+3]=0;
+      const x = idx % w, y = (idx / w)|0;
+      if(x>0) stack.push(idx-1);
+      if(x<w-1) stack.push(idx+1);
+      if(y>0) stack.push(idx-w);
+      if(y<h-1) stack.push(idx+w);
+    }
+    ctx.putImageData(imageData,0,0);
+    return canvas;
+  }
+
+  function initBooth(){
+    const el = {
+      stageUpload: document.getElementById('stage-upload'),
+      stageCamera: document.getElementById('stage-camera'),
+      stageResult: document.getElementById('stage-result'),
+      steps: document.querySelectorAll('.step'),
+      frameGrid: document.getElementById('frameGrid'),
+      toCameraBtn: document.getElementById('toCameraBtn'),
+      backToFrameBtn: document.getElementById('backToFrameBtn'),
+      viewfinder: document.getElementById('viewfinder'),
+      video: document.getElementById('video'),
+      frameOverlay: document.getElementById('frameOverlay'),
+      shutterBtn: document.getElementById('shutterBtn'),
+      flipCameraBtn: document.getElementById('flipCameraBtn'),
+      wideBtn: document.getElementById('wideBtn'),
+      cameraError: document.getElementById('cameraError'),
+      countdownNum: document.getElementById('countdownNum'),
+      flashOverlay: document.getElementById('flashOverlay'),
+      hudHint: document.getElementById('hudHint'),
+      clock: document.getElementById('clock'),
+      canvas: document.getElementById('captureCanvas'),
+      resultImg: document.getElementById('resultImg'),
+      resultTime: document.getElementById('resultTime'),
+      retakeBtn: document.getElementById('retakeBtn'),
+      downloadBtn: document.getElementById('downloadBtn'),
+    };
+
+    let frameMaskedCanvas = null;
+    let stream = null;
+    let currentFacing = 'user';
+    let wideOn = false, wideMode = null, wideZoomMin = 1, wideDeviceId = null, curDeviceId = null;
+    let lastResultDataUrl = null;
+    let clockTimer = null;
+    let currentCuts = 1;
+    let currentStack = false; // true: cuts are stacked top/bottom, false: side by side
+    let cutIndex = 0;
+    let shotCanvases = [];
+    // ---- layout (how many finished frames to stitch together) ----
+    const LAYOUTS = [
+      {id:'one', label:'1장 그대로', n:1, cols:1},
+      {id:'v2',  label:'2장 세로',   n:2, cols:1},
+      {id:'h2',  label:'2장 가로',   n:2, cols:2},
+      {id:'v4',  label:'4장 세로',   n:4, cols:1},
+      {id:'g4',  label:'4장 2×2',    n:4, cols:2},
+    ];
+    const BGS = [
+      {label:'흰색', c:'#ffffff'},
+      {label:'검정', c:'#111111'},
+    ];
+    let layout = LAYOUTS[0], layoutBg = BGS[0].c, tileIndex = 0, tileCanvases = [];
+    let baseCanvas = null, decoObjs = [], selObj = null;
+    function renderChips(row, items, isOn, onPick){
+      row.innerHTML = '';
+      items.forEach(it=>{
+        const b = document.createElement('button');
+        b.className = 'chip' + (isOn(it) ? ' on' : '');
+        b.textContent = it.label;
+        b.addEventListener('click', ()=> onPick(it));
+        row.appendChild(b);
+      });
+    }
+    function renderLayoutRow(){
+      const row = document.getElementById('layoutRow');
+      renderChips(row, LAYOUTS, l=>l===layout, l=>{ layout = l; renderLayoutRow(); });
+      const bgRow = document.getElementById('bgRow');
+      if(layout.n > 1){
+        bgRow.classList.remove('hidden');
+        renderChips(bgRow, BGS, b=>b.c===layoutBg, b=>{ layoutBg = b.c; renderLayoutRow(); });
+      } else { bgRow.classList.add('hidden'); }
+    }
+
+    function shotSize(){
+      if(currentCuts <= 1) return [CAPTURE_W, CAPTURE_H];
+      return currentStack ? [CAPTURE_W, CAPTURE_H/currentCuts] : [CAPTURE_W/currentCuts, CAPTURE_H];
+    }
+
+    function setStep(n){
+      el.steps.forEach(s=>{
+        const num = +s.dataset.step;
+        s.classList.toggle('active', num===n);
+        s.classList.toggle('done', num<n);
+      });
+    }
+
+    // preset frames the user has designed — add more entries here later
+    const FRAME_OPTIONS = (window.FRAMES || []).map(f=>({
+      id:f.id, label:f.label, dataUrl:f.file, cuts:f.cuts, stack:f.stack, variants:f.variants
+    }));
+
+    function markSelectedCard(id){
+      el.frameGrid.querySelectorAll('.frame-card').forEach(c=>{
+        c.classList.toggle('selected', c.dataset.id === id);
+      });
+    }
+
+    let currentOpt = null, currentVariant = 0;
+    const variantCache = {};
+    function loadVariantCanvas(file, cb){
+      if(variantCache[file]){ cb(variantCache[file]); return; }
+      const im = new Image();
+      im.onload = ()=>{ variantCache[file] = maskWhiteToTransparent(im); cb(variantCache[file]); };
+      im.src = file;
+    }
+    const overlayUrlCache = new WeakMap();
+    function renderVariantRow(){
+      const row = document.getElementById('variantRow');
+      const vs = currentOpt && currentOpt.variants;
+      if(!vs || vs.length < 2){ row.classList.add('hidden'); row.innerHTML=''; return; }
+      row.classList.remove('hidden');
+      row.innerHTML = '';
+      vs.forEach((v,i)=>{
+        const b = document.createElement('button');
+        b.className = 'chip' + (i===currentVariant ? ' on' : '');
+        b.textContent = v.label;
+        b.addEventListener('click', ()=>{
+          currentVariant = i;
+          row.querySelectorAll('.chip').forEach((c,j)=> c.classList.toggle('on', j===i));
+          loadVariantCanvas(v.file, cv=>{
+            if(currentVariant !== i) return;
+            frameMaskedCanvas = cv;
+            updateFrameOverlayForCut();
+          });
+        });
+        row.appendChild(b);
+      });
+    }
+
+    function selectFrameOption(opt){
+      currentOpt = opt; currentVariant = 0;
+      if(opt.variants){ opt.variants.forEach(v=> loadVariantCanvas(v.file, ()=>{})); }
+      if(opt.variants && opt.variants.length){ opt = Object.assign({}, opt, {dataUrl: opt.variants[0].file}); }
+      currentCuts = opt.cuts || 1;
+      currentStack = !!opt.stack;
+      if(!opt.dataUrl){
+        frameMaskedCanvas = null;
+        CAPTURE_W = 1080; CAPTURE_H = 1440;
+        markSelectedCard(opt.id);
+        return;
+      }
+      const img = new Image();
+      img.onload = ()=>{
+        frameMaskedCanvas = maskWhiteToTransparent(img);
+        CAPTURE_W = frameMaskedCanvas.width;
+        CAPTURE_H = frameMaskedCanvas.height;
+        markSelectedCard(opt.id);
+      };
+      img.src = opt.dataUrl;
+    }
+
+    function renderFrameGrid(){
+      el.frameGrid.innerHTML = '';
+      FRAME_OPTIONS.forEach(opt=>{
+        const card = document.createElement('div');
+        card.className = 'frame-card';
+        card.dataset.id = opt.id;
+        card.setAttribute('tabindex','0');
+        card.setAttribute('role','button');
+        const labelText = opt.label + ' (' + (opt.cuts || 1) + '컷)';
+        card.setAttribute('aria-label', labelText);
+        if(opt.dataUrl){
+          card.innerHTML = '<img class="thumb" src="'+opt.dataUrl+'" alt="'+opt.label+'"><div class="label">'+labelText+'</div>';
+        } else {
+          card.innerHTML = '<div class="thumb none">🚫</div><div class="label">'+labelText+'</div>';
+        }
+        card.addEventListener('click', ()=> selectFrameOption(opt));
+        card.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' ') selectFrameOption(opt); });
+        el.frameGrid.appendChild(card);
+      });
+    }
+
+    renderFrameGrid();
+    selectFrameOption(FRAME_OPTIONS[0]);
+
+    // ---- Frame selection → camera ----
+    el.toCameraBtn.addEventListener('click', goToCamera);
+
+    // ---- Camera ----
+    function updateFrameOverlayForCut(){
+      if(!frameMaskedCanvas){
+        el.frameOverlay.classList.add('hidden');
+      } else if(currentCuts > 1){
+        const [sw, sh] = shotSize();
+        const slice = document.createElement('canvas');
+        slice.width = sw; slice.height = sh;
+        slice.getContext('2d').drawImage(frameMaskedCanvas, currentStack ? 0 : cutIndex*sw, currentStack ? cutIndex*sh : 0, sw, sh, 0, 0, sw, sh);
+        el.frameOverlay.src = slice.toDataURL('image/png');
+        el.frameOverlay.classList.remove('hidden');
+      } else {
+        let u = overlayUrlCache.get(frameMaskedCanvas);
+        if(!u){ u = frameMaskedCanvas.toDataURL('image/png'); overlayUrlCache.set(frameMaskedCanvas, u); }
+        el.frameOverlay.src = u;
+        el.frameOverlay.classList.remove('hidden');
+      }
+      const pre = layout.n > 1 ? (tileIndex+1) + '/' + layout.n + '장 · ' : '';
+      if(currentCuts > 1){
+        el.hudHint.textContent = pre + (cutIndex+1) + '컷 / ' + currentCuts + '컷 — 자리를 잡아주세요';
+      } else {
+        el.hudHint.textContent = pre + '프레임 안에 쏙 들어와 주세요';
+      }
+    }
+
+    async function goToCamera(){
+      el.stageUpload.classList.add('hidden');
+      el.stageCamera.classList.remove('hidden');
+      document.querySelector('.card').classList.add('cam-mode');
+      setStep(2);
+      wideOn = false;
+      cutIndex = 0;
+      shotCanvases = [];
+      tileIndex = 0; tileCanvases = [];
+      renderVariantRow();
+      updateFrameOverlayForCut();
+      const [sw, sh] = shotSize();
+      el.viewfinder.style.aspectRatio = sw + ' / ' + sh;
+      startClock();
+      await startCamera();
+    }
+
+    el.backToFrameBtn.addEventListener('click', ()=>{
+      stopCamera();
+      el.stageCamera.classList.add('hidden');
+      el.stageUpload.classList.remove('hidden');
+      document.querySelector('.card').classList.remove('cam-mode');
+      setStep(1);
+    });
+
+    el.flipCameraBtn.addEventListener('click', async ()=>{
+      currentFacing = currentFacing === 'user' ? 'environment' : 'user';
+      wideOn = false;
+      el.video.classList.toggle('mirror', currentFacing === 'user');
+      stopCamera();
+      await startCamera();
+    });
+
+    el.wideBtn.addEventListener('click', async ()=>{
+      wideOn = !wideOn;
+      if(wideMode === 'zoom'){
+        const track = stream && stream.getVideoTracks()[0];
+        try{ await track.applyConstraints({advanced:[{zoom: wideOn ? wideZoomMin : 1}]}); }
+        catch(e){ wideOn = !wideOn; }
+        updateWideBtn();
+      } else if(wideMode === 'device'){
+        stopCamera();
+        await startCamera(wideOn ? wideDeviceId : null);
+      }
+    });
+    function updateWideBtn(){
+      el.wideBtn.classList.toggle('hidden', !wideMode);
+      el.wideBtn.textContent = '🔭 광각 ' + (wideOn ? 'ON' : 'OFF');
+    }
+    async function setupWide(track){
+      wideMode = null;
+      try{
+        const caps = (track.getCapabilities && track.getCapabilities()) || {};
+        if(caps.zoom && caps.zoom.min < 1){ wideMode = 'zoom'; wideZoomMin = caps.zoom.min; }
+      }catch(e){}
+      if(!wideMode){
+        try{
+          const devs = (await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='videoinput');
+          const w = devs.find(d=>/ultra|wide|0\.5|광각/i.test(d.label) && !/front|전면|user/i.test(d.label) && !/^back (dual )?camera$/i.test(d.label));
+          const isBackNow = currentFacing === 'environment';
+          if(w && isBackNow){ wideMode = 'device'; wideDeviceId = w.deviceId; }
+        }catch(e){}
+      }
+      updateWideBtn();
+    }
+
+    async function startCamera(deviceId){
+      el.cameraError.classList.add('hidden');
+      el.shutterBtn.disabled = true;
+      const [curSw, curSh] = shotSize();
+      const landscape = curSw >= curSh;
+      try{
+        stream = await navigator.mediaDevices.getUserMedia({
+          video:Object.assign(
+            deviceId ? {deviceId:{exact:deviceId}} : {facingMode: currentFacing},
+            {
+              width:{ideal: landscape ? 1920 : 1440},
+              height:{ideal: landscape ? 1440 : 1920}
+            }
+          ),
+          audio:false
+        });
+        el.video.srcObject = stream;
+        el.shutterBtn.disabled = false;
+        const track = stream.getVideoTracks()[0];
+        const st = (track.getSettings && track.getSettings()) || {};
+        if(st.facingMode){ currentFacing = st.facingMode === 'environment' ? 'environment' : 'user'; }
+        el.video.classList.toggle('mirror', currentFacing === 'user');
+        if(deviceId){ wideOn = true; }
+        await setupWide(track);
+        if(deviceId){ wideMode = 'device'; wideDeviceId = deviceId; updateWideBtn(); }
+      }catch(err){
+        el.cameraError.textContent = '카메라를 켤 수 없어요. 브라우저의 카메라 권한을 허용했는지 확인하고, 다시 시도해 주세요. (' + (err.message||err.name) + ')';
+        el.cameraError.classList.remove('hidden');
+      }
+    }
+    function stopCamera(){
+      if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; }
+    }
+
+    function startClock(){
+      if(clockTimer) clearInterval(clockTimer);
+      const tick = ()=>{ el.clock.textContent = new Date().toLocaleTimeString('ko-KR', {hour12:false}); };
+      tick();
+      clockTimer = setInterval(tick, 1000);
+    }
+
+    // ---- Shutter / countdown / capture ----
+    el.shutterBtn.addEventListener('click', ()=>{
+      el.shutterBtn.disabled = true;
+      runCountdown(3, capturePhoto);
+    });
+
+    function runCountdown(n, done){
+      el.countdownNum.classList.remove('hidden');
+      el.countdownNum.textContent = n;
+      el.countdownNum.classList.remove('pop');
+      void el.countdownNum.offsetWidth;
+      el.countdownNum.classList.add('pop');
+      if(n<=0){
+        el.countdownNum.classList.add('hidden');
+        done();
+        return;
+      }
+      setTimeout(()=> runCountdown(n-1, done), 700);
+    }
+
+    function drawCover(ctx, video, dx, dy, dw, dh){
+      const vw = video.videoWidth, vh = video.videoHeight;
+      const targetRatio = dw/dh, srcRatio = vw/vh;
+      let sx,sy,sw,sh;
+      if(srcRatio > targetRatio){
+        sh = vh; sw = vh*targetRatio; sx = (vw-sw)/2; sy=0;
+      } else {
+        sw = vw; sh = vw/targetRatio; sx=0; sy=(vh-sh)/2;
+      }
+      ctx.drawImage(video, sx,sy,sw,sh, dx,dy,dw,dh);
+    }
+
+    // ---- gallery import ----
+    const galCanvas = document.getElementById('galCanvas');
+    const galBar = document.getElementById('galBar');
+    const galZoom = document.getElementById('galZoom');
+    const galInput = document.getElementById('galleryInput');
+    let gal = null;
+    function galGeom(W,H){
+      const iw = gal.img.naturalWidth, ih = gal.img.naturalHeight;
+      const sc = Math.max(W/iw, H/ih)*gal.zoom;
+      const dw = iw*sc, dh = ih*sc;
+      const mx = (dw-W)/2, my = (dh-H)/2;
+      gal.ox = Math.max(-mx, Math.min(mx, gal.ox));
+      gal.oy = Math.max(-my, Math.min(my, gal.oy));
+      return {dx:(W-dw)/2+gal.ox, dy:(H-dh)/2+gal.oy, dw, dh};
+    }
+    function galDraw(canvas, W, H){
+      canvas.width = W; canvas.height = H;
+      const c = canvas.getContext('2d');
+      c.fillStyle = '#000'; c.fillRect(0,0,W,H);
+      const g = galGeom(W,H);
+      c.drawImage(gal.img, g.dx, g.dy, g.dw, g.dh);
+    }
+    function galRender(){
+      const r = el.viewfinder.getBoundingClientRect();
+      galDraw(galCanvas, Math.round(r.width), Math.round(r.height));
+    }
+    function galOpen(img){
+      gal = {img, zoom:1, ox:0, oy:0};
+      galZoom.value = 1;
+      el.stageCamera.classList.add('gal-mode');
+      galCanvas.classList.remove('hidden'); galBar.classList.remove('hidden');
+      galRender();
+    }
+    function galClose(){
+      gal = null;
+      el.stageCamera.classList.remove('gal-mode');
+      galCanvas.classList.add('hidden'); galBar.classList.add('hidden');
+    }
+    document.getElementById('galleryBtn').addEventListener('click', ()=> galInput.click());
+    galInput.addEventListener('change', ()=>{
+      const f = galInput.files && galInput.files[0]; galInput.value = '';
+      if(!f) return;
+      const url = URL.createObjectURL(f);
+      const img = new Image();
+      img.onload = ()=> galOpen(img);
+      img.onerror = ()=>{ URL.revokeObjectURL(url); alert('사진을 불러오지 못했어요.'); };
+      img.src = url;
+    });
+    galZoom.addEventListener('input', ()=>{
+      if(!gal) return;
+      const old = gal.zoom; gal.zoom = parseFloat(galZoom.value);
+      gal.ox *= gal.zoom/old; gal.oy *= gal.zoom/old;
+      galRender();
+    });
+    let galDrag = null;
+    galCanvas.addEventListener('pointerdown', e=>{
+      if(!gal) return;
+      galCanvas.setPointerCapture(e.pointerId);
+      galDrag = {x:e.clientX, y:e.clientY, ox:gal.ox, oy:gal.oy};
+    });
+    galCanvas.addEventListener('pointermove', e=>{
+      if(!gal || !galDrag) return;
+      const k = galCanvas.width / galCanvas.getBoundingClientRect().width;
+      gal.ox = galDrag.ox + (e.clientX-galDrag.x)*k;
+      gal.oy = galDrag.oy + (e.clientY-galDrag.y)*k;
+      galRender();
+    });
+    ['pointerup','pointercancel'].forEach(t=> galCanvas.addEventListener(t, ()=>{ galDrag = null; }));
+    document.getElementById('galCancelBtn').addEventListener('click', galClose);
+    document.getElementById('galUseBtn').addEventListener('click', ()=>{
+      if(!gal) return;
+      const [sw, sh] = shotSize();
+      const k = sw/galCanvas.width;
+      gal.ox *= k; gal.oy *= k;
+      const out = document.createElement('canvas');
+      galDraw(out, sw, sh);
+      galClose();
+      acceptShot(out);
+    });
+
+    function capturePhoto(){
+      el.flashOverlay.classList.remove('fire'); void el.flashOverlay.offsetWidth;
+      el.flashOverlay.classList.add('fire');
+
+      const [sw, sh] = shotSize();
+      const shotCanvas = document.createElement('canvas');
+      shotCanvas.width = sw; shotCanvas.height = sh;
+      const ctx = shotCanvas.getContext('2d');
+      ctx.save();
+      if(currentFacing === 'user'){
+        ctx.translate(sw,0);
+        ctx.scale(-1,1);
+      }
+      drawCover(ctx, el.video, 0,0,sw,sh);
+      ctx.restore();
+      acceptShot(shotCanvas);
+    }
+
+    function acceptShot(shotCanvas){
+      shotCanvases[cutIndex] = shotCanvas;
+
+      if(cutIndex + 1 < currentCuts){
+        cutIndex++;
+        updateFrameOverlayForCut();
+        el.shutterBtn.disabled = false;
+        return;
+      }
+
+      tileCanvases[tileIndex] = makeTile();
+      if(tileIndex + 1 < layout.n){
+        tileIndex++;
+        cutIndex = 0;
+        shotCanvases = [];
+        updateFrameOverlayForCut();
+        el.shutterBtn.disabled = false;
+        return;
+      }
+      composeFinalImage();
+      decoObjs = []; selObj = null;
+      setTimeout(showDecorate, 300);
+    }
+
+    function makeTile(){
+      const c = document.createElement('canvas');
+      c.width = CAPTURE_W; c.height = CAPTURE_H;
+      const ctx = c.getContext('2d');
+      const [sw, sh] = shotSize();
+      shotCanvases.forEach((sc, i)=>{
+        ctx.drawImage(sc, currentStack ? 0 : i*sw, currentStack ? i*sh : 0, sw, sh);
+      });
+      if(frameMaskedCanvas){
+        ctx.drawImage(frameMaskedCanvas, 0,0,CAPTURE_W,CAPTURE_H);
+      }
+      return c;
+    }
+
+    function composeFinalImage(){
+      const canvas = el.canvas;
+      const ctx = canvas.getContext('2d');
+      if(layout.n === 1){
+        canvas.width = CAPTURE_W; canvas.height = CAPTURE_H;
+        ctx.drawImage(tileCanvases[0], 0, 0);
+      } else {
+        const cols = layout.cols, rows = Math.ceil(layout.n / cols);
+        const pad = Math.round(Math.min(CAPTURE_W, CAPTURE_H) * 0.04);
+        const W = cols*CAPTURE_W + (cols+1)*pad, H = rows*CAPTURE_H + (rows+1)*pad;
+        // keep the final image phone-friendly
+        const sc = Math.min(1, 4096/Math.max(W,H), Math.sqrt(12e6/(W*H)));
+        canvas.width = Math.round(W*sc); canvas.height = Math.round(H*sc);
+        ctx.fillStyle = layoutBg;
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        tileCanvases.forEach((t,i)=>{
+          const cx = i % cols, cy = Math.floor(i/cols);
+          const x = (pad + cx*(CAPTURE_W+pad))*sc, y = (pad + cy*(CAPTURE_H+pad))*sc;
+          ctx.drawImage(t, x, y, CAPTURE_W*sc, CAPTURE_H*sc);
+        });
+      }
+      lastResultDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+    }
+
+    function showResult(){
+      stopCamera();
+      el.stageCamera.classList.add('hidden');
+      el.stageResult.classList.remove('hidden');
+      setStep(3);
+      el.resultImg.src = lastResultDataUrl;
+      el.resultTime.textContent = new Date().toLocaleString('ko-KR');
+      window.scrollTo(0,0);
+    }
+
+    el.retakeBtn.addEventListener('click', ()=>{
+      if(window.__fromLayout){ window.__openLayout(); return; }
+      el.stageResult.classList.add('hidden');
+      document.getElementById('stage-decorate').classList.add('hidden');
+      document.querySelector('.card').classList.add('cam-mode');
+      el.stageCamera.classList.remove('hidden');
+      setStep(2);
+      wideOn = false;
+      cutIndex = 0;
+      shotCanvases = [];
+      tileIndex = 0; tileCanvases = [];
+      renderVariantRow();
+      updateFrameOverlayForCut();
+      const [sw, sh] = shotSize();
+      el.viewfinder.style.aspectRatio = sw + ' / ' + sh;
+      startClock();
+      startCamera();
+    });
+
+    el.downloadBtn.addEventListener('click', ()=>{
+      if(lastResultDataUrl) downloadImage(lastResultDataUrl);
+    });
+
+    renderLayoutRow();
+    // =================== DECORATE (text + stickers) ===================
+    const decoCanvas = document.getElementById('decoCanvas');
+    const stageDeco = document.getElementById('stage-decorate');
+    const TEXT_COLORS = [{label:'검정',c:'#111111'},{label:'흰색',c:'#ffffff'},{label:'보라',c:'#8B5CF6'}];
+    const TEXT_FONTS = [{label:'손글씨',f:"'KimWildGag','Noto Sans KR',sans-serif"},{label:'고딕',f:"'Noto Sans KR',sans-serif"}];
+    const stickerImgs = {};
+    (window.STICKERS || []).forEach(u=>{ const im = new Image(); im.src = u; stickerImgs[u] = im; });
+
+    let stickerTab = 0;
+    function buildStickerTray(){
+      const tray = document.getElementById('stickerTray');
+      tray.innerHTML = '';
+      const groups = window.STICKER_GROUPS || [{label:'전체', files:window.STICKERS||[]}];
+      const tabs = document.getElementById('stickerTabs');
+      if(stickerTab >= groups.length) stickerTab = 0;
+      renderChips(tabs, groups, g=>g===groups[stickerTab], g=>{ stickerTab = groups.indexOf(g); buildStickerTray(); });
+      groups[stickerTab].files.forEach(u=>{
+        const b = document.createElement('button');
+        const im = document.createElement('img'); im.src = u; im.alt = '';
+        b.appendChild(im);
+        b.addEventListener('click', ()=> addSticker(u));
+        tray.appendChild(b);
+      });
+    }
+    function textMetrics(ctx, o, W){
+      ctx.font = Math.round(o.fs*W) + 'px ' + o.font;
+      const w = Math.max(ctx.measureText(o.text || ' ').width, o.fs*W*0.6);
+      return {w: w + o.fs*W*0.3, h: o.fs*W*1.3};
+    }
+    function objSize(ctx, o, W){
+      if(o.type === 'sticker'){
+        const im = stickerImgs[o.src]; const w = o.w*W;
+        const h = im && im.naturalWidth ? w * im.naturalHeight / im.naturalWidth : w;
+        return {w, h};
+      }
+      return textMetrics(ctx, o, W);
+    }
+    function drawObj(ctx, o, W){
+      ctx.save();
+      ctx.translate(o.x*W, o.y*W);
+      ctx.rotate(o.rot);
+      if(o.type === 'sticker'){
+        const im = stickerImgs[o.src];
+        if(im && im.complete && im.naturalWidth){
+          const {w,h} = objSize(ctx,o,W);
+          ctx.drawImage(im, -w/2, -h/2, w, h);
+        }
+      } else {
+        ctx.font = Math.round(o.fs*W) + 'px ' + o.font;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Math.max(2, o.fs*W*0.14);
+        ctx.strokeStyle = (o.color === '#ffffff') ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.9)';
+        ctx.strokeText(o.text, 0, 0);
+        ctx.fillStyle = o.color;
+        ctx.fillText(o.text, 0, 0);
+      }
+      ctx.restore();
+    }
+    function renderDeco(withUI){
+      if(!baseCanvas) return;
+      const W = decoCanvas.width, H = decoCanvas.height;
+      const ctx = decoCanvas.getContext('2d');
+      ctx.clearRect(0,0,W,H);
+      ctx.drawImage(baseCanvas, 0,0,W,H);
+      decoObjs.forEach(o=> drawObj(ctx,o,W));
+      if(withUI && selObj){
+        const {w,h} = objSize(ctx, selObj, W);
+        ctx.save();
+        ctx.translate(selObj.x*W, selObj.y*W); ctx.rotate(selObj.rot);
+        ctx.setLineDash([8,6]); ctx.lineWidth = 2.5; ctx.strokeStyle = '#7C5FB0';
+        ctx.strokeRect(-w/2,-h/2,w,h); ctx.setLineDash([]);
+        const r = Math.max(14, W*0.026);
+        [[-w/2,-h/2,'x'],[w/2,h/2,'s']].forEach(([hx,hy,t])=>{
+          ctx.beginPath(); ctx.arc(hx,hy,r,0,Math.PI*2);
+          ctx.fillStyle = t==='x' ? '#111' : '#7C5FB0'; ctx.fill();
+          ctx.strokeStyle='#fff'; ctx.lineWidth=3; ctx.stroke();
+          ctx.strokeStyle='#fff'; ctx.lineWidth=3; ctx.beginPath();
+          if(t==='x'){ const d=r*0.42; ctx.moveTo(hx-d,hy-d); ctx.lineTo(hx+d,hy+d); ctx.moveTo(hx+d,hy-d); ctx.lineTo(hx-d,hy+d); }
+          else { const d=r*0.45; ctx.moveTo(hx-d,hy+d); ctx.lineTo(hx+d,hy-d); ctx.moveTo(hx+d,hy-d*0.2); ctx.lineTo(hx+d,hy-d); ctx.lineTo(hx+d*0.2,hy-d); }
+          ctx.stroke();
+        });
+        ctx.restore();
+      }
+    }
+    function setupDecoCanvas(){
+      const maxW = 1100;
+      const sc = Math.min(1, maxW / baseCanvas.width);
+      decoCanvas.width = Math.round(baseCanvas.width*sc);
+      decoCanvas.height = Math.round(baseCanvas.height*sc);
+    }
+    function toLocal(o, px, py, W){
+      const dx = px - o.x*W, dy = py - o.y*W;
+      const c = Math.cos(-o.rot), s = Math.sin(-o.rot);
+      return {x: dx*c - dy*s, y: dx*s + dy*c};
+    }
+    function hitHandle(o, px, py){
+      const W = decoCanvas.width, ctx = decoCanvas.getContext('2d');
+      const {w,h} = objSize(ctx,o,W); const r = Math.max(14, W*0.026)*1.5;
+      const l = toLocal(o,px,py,W);
+      if(Math.hypot(l.x+w/2, l.y+h/2) <= r) return 'x';
+      if(Math.hypot(l.x-w/2, l.y-h/2) <= r) return 's';
+      return null;
+    }
+    function hitObj(o, px, py){
+      const W = decoCanvas.width, ctx = decoCanvas.getContext('2d');
+      const {w,h} = objSize(ctx,o,W); const l = toLocal(o,px,py,W);
+      const pad = W*0.01;
+      return Math.abs(l.x) <= w/2+pad && Math.abs(l.y) <= h/2+pad;
+    }
+    function addSticker(src){
+      const o = {type:'sticker', src, x:0.5, y:decoCanvas.height/decoCanvas.width/2, w:0.22, rot:0};
+      decoObjs.push(o); selectObj(o); document.getElementById('stickerTray').classList.add('hidden'); document.getElementById('stickerTabs').classList.add('hidden');
+    }
+    function addText(){
+      const o = {type:'text', text:'글씨', x:0.5, y:decoCanvas.height/decoCanvas.width/2, fs:0.08, rot:0, color:'#111111', font:TEXT_FONTS[0].f};
+      decoObjs.push(o); selectObj(o);
+      const inp = document.getElementById('textInput'); inp.value = ''; inp.focus();
+      o.text = '';
+      renderDeco(true);
+    }
+    function selectObj(o){
+      selObj = o;
+      const panel = document.getElementById('textPanel');
+      if(o && o.type === 'text'){
+        panel.classList.remove('hidden');
+        document.getElementById('textInput').value = o.text;
+        renderChips(document.getElementById('textColorRow'), TEXT_COLORS, c=>c.c===o.color, c=>{ o.color=c.c; selectObjUIOnly(); renderDeco(true); });
+        renderChips(document.getElementById('textFontRow'), TEXT_FONTS, f=>f.f===o.font, f=>{ o.font=f.f; selectObjUIOnly(); renderDeco(true); });
+      } else { panel.classList.add('hidden'); }
+      renderDeco(true);
+    }
+    function selectObjUIOnly(){
+      const o = selObj; if(!o || o.type!=='text') return;
+      renderChips(document.getElementById('textColorRow'), TEXT_COLORS, c=>c.c===o.color, c=>{ o.color=c.c; selectObjUIOnly(); renderDeco(true); });
+      renderChips(document.getElementById('textFontRow'), TEXT_FONTS, f=>f.f===o.font, f=>{ o.font=f.f; selectObjUIOnly(); renderDeco(true); });
+    }
+    function deleteObj(o){
+      decoObjs = decoObjs.filter(x=>x!==o);
+      if(o.type==='text' && !o.text) {}
+      selectObj(null);
+    }
+    document.getElementById('textInput').addEventListener('input', e=>{
+      if(selObj && selObj.type==='text'){ selObj.text = e.target.value; renderDeco(true); }
+    });
+    document.getElementById('addTextBtn').addEventListener('click', addText);
+    document.getElementById('addStickerBtn').addEventListener('click', ()=>{
+      document.getElementById('stickerTray').classList.toggle('hidden');
+      document.getElementById('stickerTabs').classList.toggle('hidden', document.getElementById('stickerTray').classList.contains('hidden'));
+    });
+
+    // ---- pointer interaction ----
+    const ptrs = new Map();
+    let drag = null, pinch = null;
+    function canvasPt(e){
+      const r = decoCanvas.getBoundingClientRect();
+      return {x:(e.clientX - r.left) * decoCanvas.width / r.width, y:(e.clientY - r.top) * decoCanvas.height / r.height};
+    }
+    decoCanvas.addEventListener('pointerdown', e=>{
+      decoCanvas.setPointerCapture(e.pointerId);
+      const p = canvasPt(e); ptrs.set(e.pointerId, p);
+      const W = decoCanvas.width;
+      if(ptrs.size === 2 && selObj){
+        const [a,b] = [...ptrs.values()];
+        pinch = {d:Math.hypot(a.x-b.x,a.y-b.y), ang:Math.atan2(b.y-a.y,b.x-a.x), size: selObj.type==='sticker'?selObj.w:selObj.fs, rot: selObj.rot};
+        drag = null; return;
+      }
+      if(selObj){
+        const hh = hitHandle(selObj, p.x, p.y);
+        if(hh === 'x'){ deleteObj(selObj); return; }
+        if(hh === 's'){
+          const cx = selObj.x*W, cy = selObj.y*W;
+          drag = {mode:'scale', d0:Math.hypot(p.x-cx,p.y-cy)||1, a0:Math.atan2(p.y-cy,p.x-cx), size:selObj.type==='sticker'?selObj.w:selObj.fs, rot:selObj.rot};
+          return;
+        }
+      }
+      for(let i=decoObjs.length-1;i>=0;i--){
+        if(hitObj(decoObjs[i], p.x, p.y)){
+          if(selObj !== decoObjs[i]) selectObj(decoObjs[i]);
+          drag = {mode:'move', ox:selObj.x - p.x/W, oy:selObj.y - p.y/W};
+          return;
+        }
+      }
+      selectObj(null);
+    });
+    decoCanvas.addEventListener('pointermove', e=>{
+      if(!ptrs.has(e.pointerId)) return;
+      const p = canvasPt(e); ptrs.set(e.pointerId, p);
+      const W = decoCanvas.width;
+      if(pinch && ptrs.size >= 2 && selObj){
+        const [a,b] = [...ptrs.values()];
+        const d = Math.hypot(a.x-b.x,a.y-b.y), ang = Math.atan2(b.y-a.y,b.x-a.x);
+        const k = d/(pinch.d||1);
+        if(selObj.type==='sticker') selObj.w = Math.min(1.2, Math.max(0.04, pinch.size*k)); else selObj.fs = Math.min(0.4, Math.max(0.02, pinch.size*k));
+        selObj.rot = pinch.rot + (ang - pinch.ang);
+        renderDeco(true); return;
+      }
+      if(!drag || !selObj) return;
+      if(drag.mode === 'move'){
+        selObj.x = Math.min(1.1, Math.max(-0.1, p.x/W + drag.ox));
+        selObj.y = Math.min(decoCanvas.height/W+0.1, Math.max(-0.1, p.y/W + drag.oy));
+      } else {
+        const cx = selObj.x*W, cy = selObj.y*W;
+        const d = Math.hypot(p.x-cx,p.y-cy), ang = Math.atan2(p.y-cy,p.x-cx);
+        const k = d/drag.d0;
+        if(selObj.type==='sticker') selObj.w = Math.min(1.2, Math.max(0.04, drag.size*k)); else selObj.fs = Math.min(0.4, Math.max(0.02, drag.size*k));
+        selObj.rot = drag.rot + (ang - drag.a0);
+      }
+      renderDeco(true);
+    });
+    function endPtr(e){
+      ptrs.delete(e.pointerId);
+      if(ptrs.size < 2) pinch = null;
+      if(ptrs.size === 0) drag = null;
+    }
+    decoCanvas.addEventListener('pointerup', endPtr);
+    decoCanvas.addEventListener('pointercancel', endPtr);
+
+    // ---- stage transitions ----
+    function showDecorate(){
+      stopCamera();
+      el.stageCamera.classList.add('hidden');
+      el.stageResult.classList.add('hidden');
+      stageDeco.classList.remove('hidden');
+      setStep(3);
+      baseCanvas = document.createElement('canvas');
+      baseCanvas.width = el.canvas.width; baseCanvas.height = el.canvas.height;
+      baseCanvas.getContext('2d').drawImage(el.canvas, 0, 0);
+      setupDecoCanvas();
+      buildStickerTray();
+      renderDecoBgRow();
+      selectObj(null);
+      (document.fonts && document.fonts.load ? document.fonts.load("40px KimWildGag") : Promise.resolve()).then(()=> renderDeco(true));
+      window.scrollTo(0,0);
+    }
+    function renderDecoBgRow(){
+      const row = document.getElementById('decoBgRow');
+      if(layout.n < 2){ row.classList.add('hidden'); return; }
+      row.classList.remove('hidden');
+      renderChips(row, BGS, b=>b.c===layoutBg, b=>{
+        layoutBg = b.c; composeFinalImage();
+        baseCanvas.getContext('2d').clearRect(0,0,baseCanvas.width,baseCanvas.height);
+        baseCanvas.getContext('2d').drawImage(el.canvas,0,0);
+        renderDecoBgRow(); renderDeco(true);
+      });
+    }
+    function flattenDeco(){
+      const out = document.createElement('canvas');
+      out.width = baseCanvas.width; out.height = baseCanvas.height;
+      const ctx = out.getContext('2d');
+      ctx.drawImage(baseCanvas,0,0);
+      decoObjs.forEach(o=> drawObj(ctx,o,out.width));
+      return out.toDataURL('image/jpeg', 0.92);
+    }
+    document.getElementById('decoDoneBtn').addEventListener('click', ()=>{
+      selectObj(null);
+      lastResultDataUrl = flattenDeco();
+      window.__afterDeco(lastResultDataUrl);
+      stageDeco.classList.add('hidden');
+      el.stageResult.classList.remove('hidden');
+      setStep(4);
+      el.resultImg.src = lastResultDataUrl;
+      el.resultTime.textContent = new Date().toLocaleString('ko-KR');
+      window.scrollTo(0,0);
+    });
+    document.getElementById('backDecoBtn').addEventListener('click', ()=>{
+      el.stageResult.classList.add('hidden');
+      stageDeco.classList.remove('hidden');
+      setStep(3);
+      renderDeco(true);
+      window.scrollTo(0,0);
+    });
+    document.getElementById('decoRetakeBtn').addEventListener('click', ()=> el.retakeBtn.click());
+    // =================== PHOTO LIBRARY + LAYOUT MAKER ===================
+    window.__fromLayout = false;
+    const stageLy = document.getElementById('stage-layout');
+    const lib = []; let libDB = null;
+    function loadImg(u){ return new Promise((res,rej)=>{ const i = new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=u; }); }
+    function libOpen(){ return new Promise(res=>{ try{
+      const r = indexedDB.open('kkongphoto', 1);
+      r.onupgradeneeded = ()=> r.result.createObjectStore('photos', {keyPath:'id'});
+      r.onsuccess = ()=>{ libDB = r.result; res(); }; r.onerror = ()=>res();
+    }catch(e){ res(); } }); }
+    function libPut(rec){ try{ libDB && libDB.transaction('photos','readwrite').objectStore('photos').put(rec); }catch(e){} }
+    function libDelDB(id){ try{ libDB && libDB.transaction('photos','readwrite').objectStore('photos').delete(id); }catch(e){} }
+    function libLoadAll(){ return new Promise(res=>{ if(!libDB) return res(); try{
+      const q = libDB.transaction('photos').objectStore('photos').getAll();
+      q.onsuccess = ()=>{ q.result.sort((a,b)=>a.id-b.id); q.result.forEach(r=>lib.push(r)); res(); };
+      q.onerror = ()=>res();
+    }catch(e){ res(); } }); }
+    function updateLibCount(){
+      document.getElementById('toLayoutBtn').textContent = '🧩 레이아웃 만들기' + (lib.length ? ' (사진함 ' + lib.length + '장)' : '');
+    }
+    async function addToLib(dataUrl){
+      try{
+        const img = await loadImg(dataUrl);
+        const tw = 360, th = Math.round(tw*img.naturalHeight/img.naturalWidth);
+        const c = document.createElement('canvas'); c.width = tw; c.height = th;
+        c.getContext('2d').drawImage(img,0,0,tw,th);
+        const rec = {id:Date.now(), full:dataUrl, thumb:c.toDataURL('image/jpeg',0.8)};
+        lib.push(rec); libPut(rec); updateLibCount();
+      }catch(e){}
+    }
+    window.__afterDeco = (url)=>{
+      const note = document.getElementById('libNote');
+      if(window.__fromLayout){
+        note.textContent = '';
+        el.retakeBtn.textContent = '다시 만들기'; document.getElementById('decoRetakeBtn').textContent = '다시 만들기';
+      } else {
+        addToLib(url);
+        note.textContent = '사진함에 담았어요! 아래 "레이아웃 만들기"에서 여러 장을 이어 붙일 수 있어요.';
+        el.retakeBtn.textContent = '다시 찍기'; document.getElementById('decoRetakeBtn').textContent = '다시 찍기';
+      }
+    };
+    libOpen().then(libLoadAll).then(updateLibCount);
+
+    const LY_LAYOUTS = LAYOUTS.slice(1);
+    const LY_RATIOS = [{label:'세로 3:4', r:3/4},{label:'가로 3:2', r:3/2},{label:'정사각 1:1', r:1}];
+    let lyLayout = LY_LAYOUTS[0], lyRatio = LY_RATIOS[0], lyBg = BGS[0].c, lySlots = [], lySel = null;
+    const lyCanvas = document.getElementById('lyCanvas');
+    const lyTray = document.getElementById('lyTray');
+    const lyFile = document.getElementById('lyFile');
+    function lyGeom(){
+      const SW = 1200, SH = Math.round(SW/lyRatio.r);
+      const cols = lyLayout.cols, rows = Math.ceil(lyLayout.n/cols);
+      const pad = Math.round(Math.min(SW,SH)*0.04);
+      return {SW, SH, cols, rows, pad, W: cols*SW+(cols+1)*pad, H: rows*SH+(rows+1)*pad};
+    }
+    function lyRect(g,i){
+      const cx = i % g.cols, cy = Math.floor(i/g.cols);
+      return {x: g.pad + cx*(g.SW+g.pad), y: g.pad + cy*(g.SH+g.pad), w: g.SW, h: g.SH};
+    }
+    function coverDraw(ctx, img, x,y,w,h){
+      const iw = img.naturalWidth, ih = img.naturalHeight;
+      const sc = Math.max(w/iw, h/ih), dw = iw*sc, dh = ih*sc;
+      ctx.save(); ctx.beginPath(); ctx.rect(x,y,w,h); ctx.clip();
+      ctx.drawImage(img, x+(w-dw)/2, y+(h-dh)/2, dw, dh); ctx.restore();
+    }
+    function lyDraw(canvas, maxSide, preview){
+      const g = lyGeom();
+      const sc = Math.min(1, maxSide/Math.max(g.W,g.H), Math.sqrt(12e6/(g.W*g.H)));
+      canvas.width = Math.round(g.W*sc); canvas.height = Math.round(g.H*sc);
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = lyBg; ctx.fillRect(0,0,canvas.width,canvas.height);
+      for(let i=0;i<lyLayout.n;i++){
+        const r = lyRect(g,i), x=r.x*sc, y=r.y*sc, w=r.w*sc, h=r.h*sc;
+        if(lySlots[i]) coverDraw(ctx, lySlots[i], x,y,w,h);
+        else if(preview){
+          ctx.fillStyle = '#ece6f7'; ctx.fillRect(x,y,w,h);
+          ctx.fillStyle = '#8B5CF6'; ctx.font = 'bold '+Math.round(h*0.25)+'px sans-serif';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('+', x+w/2, y+h/2);
+        }
+        if(preview && lySel === i){
+          ctx.strokeStyle = '#8B5CF6'; ctx.lineWidth = Math.max(4, w*0.015);
+          ctx.strokeRect(x+ctx.lineWidth/2, y+ctx.lineWidth/2, w-ctx.lineWidth, h-ctx.lineWidth);
+        }
+      }
+    }
+    function lyRefresh(){
+      renderChips(document.getElementById('lyLayoutRow'), LY_LAYOUTS, l=>l===lyLayout, l=>{ lyLayout = l; lySlots = lySlots.slice(0,l.n); lySel = null; lyRefresh(); });
+      renderChips(document.getElementById('lyRatioRow'), LY_RATIOS, r=>r===lyRatio, r=>{ lyRatio = r; lyRefresh(); });
+      renderChips(document.getElementById('lyBgRow'), BGS, b=>b.c===lyBg, b=>{ lyBg = b.c; lyRefresh(); });
+      lyDraw(lyCanvas, 900, true);
+      document.getElementById('lyDoneBtn').disabled = !lySlots.slice(0,lyLayout.n).some(Boolean);
+      lyRenderTray();
+    }
+    function lyRenderTray(){
+      lyTray.innerHTML = '';
+      if(lySel === null){ lyTray.classList.add('hidden'); return; }
+      lyTray.classList.remove('hidden');
+      const add = document.createElement('button'); add.textContent = '＋ 갤러리';
+      add.addEventListener('click', ()=> lyFile.click()); lyTray.appendChild(add);
+      if(lySlots[lySel]){
+        const clr = document.createElement('button'); clr.textContent = '비우기';
+        clr.addEventListener('click', ()=>{ lySlots[lySel] = null; lySel = null; lyRefresh(); });
+        lyTray.appendChild(clr);
+      }
+      lib.slice().reverse().forEach(rec=>{
+        const b = document.createElement('button');
+        const im = document.createElement('img'); im.src = rec.thumb; im.alt = '';
+        const d = document.createElement('span'); d.className = 'del'; d.textContent = '✕';
+        d.addEventListener('click', ev=>{
+          ev.stopPropagation();
+          if(!confirm('사진함에서 이 사진을 삭제할까요?')) return;
+          lib.splice(lib.indexOf(rec),1); libDelDB(rec.id); updateLibCount(); lyRenderTray();
+        });
+        b.appendChild(im); b.appendChild(d);
+        b.addEventListener('click', async ()=>{
+          try{ lySlots[lySel] = await loadImg(rec.full); }catch(e){ return; }
+          lySel = null; lyRefresh();
+        });
+        lyTray.appendChild(b);
+      });
+      if(!lib.length){
+        const e = document.createElement('div'); e.className = 'ly-empty';
+        e.textContent = '아직 사진함이 비어 있어요. 촬영·꾸미기를 마치면 자동으로 담겨요.'; lyTray.appendChild(e);
+      }
+    }
+    lyCanvas.addEventListener('click', e=>{
+      const rc = lyCanvas.getBoundingClientRect(), g = lyGeom();
+      const fx = (e.clientX-rc.left)/rc.width*g.W, fy = (e.clientY-rc.top)/rc.height*g.H;
+      let hit = null;
+      for(let i=0;i<lyLayout.n;i++){ const r = lyRect(g,i); if(fx>=r.x&&fx<=r.x+r.w&&fy>=r.y&&fy<=r.y+r.h){ hit = i; break; } }
+      lySel = (hit === lySel) ? null : hit; lyRefresh();
+    });
+    lyFile.addEventListener('change', ()=>{
+      const f = lyFile.files && lyFile.files[0]; lyFile.value = '';
+      if(!f || lySel === null) return;
+      const i = lySel, u = URL.createObjectURL(f);
+      loadImg(u).then(img=>{ lySlots[i] = img; lySel = null; lyRefresh(); }).catch(()=> alert('사진을 불러오지 못했어요.'));
+    });
+    function hideAllStages(){
+      stopCamera();
+      [el.stageUpload, el.stageCamera, el.stageResult, stageDeco, stageLy].forEach(x=>x.classList.add('hidden'));
+      document.querySelector('.card').classList.remove('cam-mode');
+    }
+    window.__openLayout = ()=>{
+      hideAllStages(); stageLy.classList.remove('hidden'); setStep(1);
+      lySel = null; lyRefresh(); window.scrollTo(0,0);
+    };
+    function goHome(){ hideAllStages(); el.stageUpload.classList.remove('hidden'); setStep(1); window.__fromLayout = false; window.scrollTo(0,0); }
+    document.getElementById('toLayoutBtn').addEventListener('click', window.__openLayout);
+    document.getElementById('resLayoutBtn').addEventListener('click', window.__openLayout);
+    document.getElementById('resHomeBtn').addEventListener('click', goHome);
+    document.getElementById('lyBackBtn').addEventListener('click', goHome);
+    el.toCameraBtn.addEventListener('click', ()=>{ window.__fromLayout = false; });
+    document.getElementById('lyDoneBtn').addEventListener('click', ()=>{
+      lySel = null;
+      lyDraw(el.canvas, 4096, false);
+      window.__fromLayout = true;
+      decoObjs = []; selObj = null;
+      hideAllStages();
+      showDecorate();
+    });
+    // =================================================================
+    setStep(1);
+  }
+})();
+</script>
+</body>
+</html>
