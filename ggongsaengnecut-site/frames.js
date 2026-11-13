@@ -26,9 +26,9 @@ window.FRAMES = [
     variants:[
       { label:'오바모찌', file:'frames/mochi-over.png' },
       { label:'기본모찌', file:'frames/mochi-basic.png' },
+      { label:'강추모찌', file:'frames/mochi-rec.png' },
       { label:'남자모찌', file:'frames/mochi-boy.png' },
       { label:'여자모찌', file:'frames/mochi-girl.png' },
-      { label:'강추모찌', file:'frames/mochi-rec.png' },
     ] },
   { id:'vs',    label:'불안형vs안정형', file:'frames/vs.png', cuts:2 },
   { id:'card', label:'카-도', file:'frames/card-omedeto-v2.png',
