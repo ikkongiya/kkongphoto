@@ -235,12 +235,28 @@
   .gal-bar .gal-hint{ font-size:12px; text-align:center; opacity:.7; margin-bottom:8px; }
   .gal-mode .readout-bottom, .gal-mode .readout-top{ display:none; }
   .gal-mode .live-only{ display:none !important; }
-  .ly-tray{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; }
-  .ly-tray button{ aspect-ratio:3/2; border:2px solid #111; border-radius:10px; background:#fff; overflow:hidden; position:relative; padding:0; font-weight:700; font-size:12px; touch-action:manipulation; }
+  .card.ly-mode .mascot{ display:none; }
+  .ly-desc{ font-size:13px; opacity:.7; text-align:center; margin:4px 0 12px; }
+  .ly-opts{ background:#faf8fd; border:1.5px solid var(--line); border-radius:16px; padding:10px 12px; display:flex; flex-direction:column; gap:8px; }
+  .ly-opt{ display:flex; flex-direction:column; align-items:flex-start; gap:5px; }
+  .ly-opt > b{ font-size:12px; opacity:.65; font-weight:700; }
+  .ly-opt .variant-row{ margin-top:0; justify-content:flex-start; gap:6px; flex-wrap:wrap; }
+  .ly-opt .variant-row .chip{ min-height:36px; padding:6px 12px; font-size:12.5px; border-width:1.5px; }
+  .ly-stage{ margin:16px 0 12px; display:flex; justify-content:center; }
+  #lyCanvas{ width:auto; max-width:100%; max-height:48vh; display:block; border-radius:10px; box-shadow:0 2px 14px rgba(0,0,0,.14); touch-action:manipulation; }
+  .ly-pick{ border:1.5px solid var(--line); border-radius:16px; padding:10px 12px 12px; margin-bottom:4px; }
+  .ly-pick .ttl{ font-size:12.5px; font-weight:700; opacity:.7; margin-bottom:8px; }
+  .ly-adj{ display:flex; align-items:center; gap:10px; font-size:14px; margin-bottom:6px; }
+  .ly-adj input[type=range]{ flex:1; accent-color:#8B5CF6; }
+  .ly-adj .btn{ min-height:34px; padding:5px 12px; font-size:12px; }
+  .ly-adjhint{ font-size:11.5px; opacity:.6; margin:0 0 10px; }
+  .ly-tray{ display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; }
+  .ly-tray button{ flex:0 0 92px; height:64px; border:2px solid #111; border-radius:10px; background:#fff; overflow:hidden; position:relative; padding:0; font-weight:700; font-size:12px; touch-action:manipulation; }
   .ly-tray button img{ width:100%; height:100%; object-fit:cover; display:block; }
   .ly-tray .del{ position:absolute; top:2px; right:2px; width:20px; height:20px; border-radius:50%; background:#111; color:#fff; font-size:11px; line-height:20px; text-align:center; }
-  #lyCanvas{ width:100%; display:block; border-radius:12px; border:2px solid #111; touch-action:manipulation; }
-  .ly-empty{ grid-column:1/-1; font-size:12px; opacity:.7; text-align:center; padding:6px; }
+  .ly-empty{ font-size:12px; opacity:.7; padding:6px 2px; align-self:center; white-space:nowrap; }
+  .ly-actions{ padding:12px 0 2px; display:flex; gap:10px; }
+  .ly-actions .btn{ flex:1; }
   .home-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px; }
   .cam-tools{ margin-top:10px; flex-wrap:wrap; gap:10px; }
   #stage-camera .controls:not(.cam-tools){ display:grid; grid-template-columns:1fr auto 1fr; gap:12px; }
@@ -411,14 +427,23 @@
 
   <!-- LAYOUT MAKER -->
   <section id="stage-layout" class="hidden">
-    <p class="desc">찍어둔 사진을 골라서 한 장으로 이어 붙여요. 칸을 눌러 사진을 넣어 주세요.</p>
-    <div class="variant-row" id="lyLayoutRow"></div>
-    <div class="variant-row" id="lyRatioRow"></div>
-    <div class="variant-row" id="lyBgRow"></div>
-    <canvas id="lyCanvas"></canvas>
-    <div class="ly-tray hidden" id="lyTray"></div>
+    <div class="ly-desc">찍어둔 사진을 칸마다 넣어서 한 장으로 합쳐요</div>
+    <div class="ly-opts">
+      <div class="ly-opt"><b>배치</b><div class="variant-row" id="lyLayoutRow"></div></div>
+      <div class="ly-opt"><b>칸 비율</b><div class="variant-row" id="lyRatioRow"></div></div>
+      <div class="ly-opt"><b>배경</b><div class="variant-row" id="lyBgRow"></div></div>
+    </div>
+    <div class="ly-stage"><canvas id="lyCanvas"></canvas></div>
+    <div class="ly-pick hidden" id="lyPick">
+      <div class="ttl" id="lyPickTtl">사진 고르기</div>
+      <div id="lyAdjWrap" class="hidden">
+        <div class="ly-adj"><span>－</span><input type="range" id="lyZoom" min="1" max="3" step="0.01" value="1"><span>＋</span><button class="btn" id="lyZoomReset">초기화</button></div>
+        <div class="ly-adjhint">위 미리보기에서 사진을 드래그하면 위치가 바뀌고, 슬라이더로 확대·축소해요</div>
+      </div>
+      <div class="ly-tray" id="lyTray"></div>
+    </div>
     <input type="file" id="lyFile" accept="image/*" class="hidden">
-    <div class="controls">
+    <div class="ly-actions">
       <button class="btn" id="lyBackBtn">← 처음으로</button>
       <button class="btn primary" id="lyDoneBtn" disabled>완성!</button>
     </div>
@@ -466,7 +491,7 @@
   </section>
 </div>
 
-<div style="margin-top:14px;font-size:10px;color:#6b7a8a;opacity:.8;text-align:center;">버전 11/13 17:40</div>
+<div style="margin-top:14px;font-size:10px;color:#6b7a8a;opacity:.8;text-align:center;">버전 11/13 18:30</div>
 
 <canvas id="captureCanvas" class="hidden"></canvas>
 
@@ -1394,7 +1419,7 @@
 
     const LY_LAYOUTS = LAYOUTS.slice(1);
     const LY_RATIOS = [{label:'세로 3:4', r:3/4},{label:'가로 3:2', r:3/2},{label:'정사각 1:1', r:1}];
-    let lyLayout = LY_LAYOUTS[0], lyRatio = LY_RATIOS[0], lyBg = BGS[0].c, lySlots = [], lySel = null;
+    let lyLayout = LY_LAYOUTS[0], lyRatio = LY_RATIOS[0], lyBg = BGS[0].c, lySlots = [], lyAdj = [], lySel = null;
     const lyCanvas = document.getElementById('lyCanvas');
     const lyTray = document.getElementById('lyTray');
     const lyFile = document.getElementById('lyFile');
@@ -1408,11 +1433,15 @@
       const cx = i % g.cols, cy = Math.floor(i/g.cols);
       return {x: g.pad + cx*(g.SW+g.pad), y: g.pad + cy*(g.SH+g.pad), w: g.SW, h: g.SH};
     }
-    function coverDraw(ctx, img, x,y,w,h){
+    function adjOf(i){ return lyAdj[i] || (lyAdj[i] = {z:1, ox:0, oy:0}); }
+    function coverDraw(ctx, img, x,y,w,h, adj){
+      const a = adj || {z:1, ox:0, oy:0};
       const iw = img.naturalWidth, ih = img.naturalHeight;
-      const sc = Math.max(w/iw, h/ih), dw = iw*sc, dh = ih*sc;
+      const sc = Math.max(w/iw, h/ih)*a.z, dw = iw*sc, dh = ih*sc;
+      const mx = Math.max(0,(dw-w)/2)/w, my = Math.max(0,(dh-h)/2)/h;
+      a.ox = Math.max(-mx, Math.min(mx, a.ox)); a.oy = Math.max(-my, Math.min(my, a.oy));
       ctx.save(); ctx.beginPath(); ctx.rect(x,y,w,h); ctx.clip();
-      ctx.drawImage(img, x+(w-dw)/2, y+(h-dh)/2, dw, dh); ctx.restore();
+      ctx.drawImage(img, x+(w-dw)/2 + a.ox*w, y+(h-dh)/2 + a.oy*h, dw, dh); ctx.restore();
     }
     function lyDraw(canvas, maxSide, preview){
       const g = lyGeom();
@@ -1422,10 +1451,12 @@
       ctx.fillStyle = lyBg; ctx.fillRect(0,0,canvas.width,canvas.height);
       for(let i=0;i<lyLayout.n;i++){
         const r = lyRect(g,i), x=r.x*sc, y=r.y*sc, w=r.w*sc, h=r.h*sc;
-        if(lySlots[i]) coverDraw(ctx, lySlots[i], x,y,w,h);
+        if(lySlots[i]) coverDraw(ctx, lySlots[i], x,y,w,h, lyAdj[i]);
         else if(preview){
-          ctx.fillStyle = '#ece6f7'; ctx.fillRect(x,y,w,h);
-          ctx.fillStyle = '#8B5CF6'; ctx.font = 'bold '+Math.round(h*0.25)+'px sans-serif';
+          ctx.fillStyle = '#f4f0fb'; ctx.fillRect(x,y,w,h);
+          ctx.setLineDash([Math.max(6,w*0.03), Math.max(5,w*0.025)]); ctx.strokeStyle = '#b9a7e8'; ctx.lineWidth = Math.max(2,w*0.008);
+          ctx.strokeRect(x+ctx.lineWidth*2, y+ctx.lineWidth*2, w-ctx.lineWidth*4, h-ctx.lineWidth*4); ctx.setLineDash([]);
+          ctx.fillStyle = '#8B5CF6'; ctx.font = 'bold '+Math.round(h*0.14)+'px sans-serif';
           ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('+', x+w/2, y+h/2);
         }
         if(preview && lySel === i){
@@ -1444,13 +1475,19 @@
     }
     function lyRenderTray(){
       lyTray.innerHTML = '';
-      if(lySel === null){ lyTray.classList.add('hidden'); return; }
-      lyTray.classList.remove('hidden');
+      const pick = document.getElementById('lyPick');
+      lyCanvas.style.touchAction = (lySel !== null && lySlots[lySel]) ? 'none' : 'manipulation';
+      if(lySel === null){ pick.classList.add('hidden'); return; }
+      pick.classList.remove('hidden');
+      setTimeout(()=>pick.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+      const aw = document.getElementById('lyAdjWrap');
+      if(lySlots[lySel]){ aw.classList.remove('hidden'); document.getElementById('lyZoom').value = adjOf(lySel).z; } else aw.classList.add('hidden');
+      document.getElementById('lyPickTtl').textContent = (lySel+1) + '번째 칸에 넣을 사진 · 사진함 ' + lib.length + '장';
       const add = document.createElement('button'); add.textContent = '＋ 갤러리';
       add.addEventListener('click', ()=> lyFile.click()); lyTray.appendChild(add);
       if(lySlots[lySel]){
         const clr = document.createElement('button'); clr.textContent = '비우기';
-        clr.addEventListener('click', ()=>{ lySlots[lySel] = null; lySel = null; lyRefresh(); });
+        clr.addEventListener('click', ()=>{ lySlots[lySel] = null; lyAdj[lySel] = null; lyRefresh(); });
         lyTray.appendChild(clr);
       }
       lib.slice().reverse().forEach(rec=>{
@@ -1465,35 +1502,65 @@
         b.appendChild(im); b.appendChild(d);
         b.addEventListener('click', async ()=>{
           try{ lySlots[lySel] = await loadImg(rec.full); }catch(e){ return; }
-          lySel = null; lyRefresh();
+          lyAdj[lySel] = null; lyRefresh();
         });
         lyTray.appendChild(b);
       });
       if(!lib.length){
         const e = document.createElement('div'); e.className = 'ly-empty';
-        e.textContent = '아직 사진함이 비어 있어요. 촬영·꾸미기를 마치면 자동으로 담겨요.'; lyTray.appendChild(e);
+        e.textContent = '사진함이 비어 있어요. 촬영·꾸미기를 마치면 자동으로 담겨요.'; lyTray.appendChild(e);
       }
     }
-    lyCanvas.addEventListener('click', e=>{
+    function lyHit(e){
       const rc = lyCanvas.getBoundingClientRect(), g = lyGeom();
       const fx = (e.clientX-rc.left)/rc.width*g.W, fy = (e.clientY-rc.top)/rc.height*g.H;
-      let hit = null;
-      for(let i=0;i<lyLayout.n;i++){ const r = lyRect(g,i); if(fx>=r.x&&fx<=r.x+r.w&&fy>=r.y&&fy<=r.y+r.h){ hit = i; break; } }
-      lySel = (hit === lySel) ? null : hit; lyRefresh();
+      for(let i=0;i<lyLayout.n;i++){ const r = lyRect(g,i); if(fx>=r.x&&fx<=r.x+r.w&&fy>=r.y&&fy<=r.y+r.h) return i; }
+      return null;
+    }
+    let lyDrag = null;
+    lyCanvas.addEventListener('pointerdown', e=>{
+      lyCanvas.setPointerCapture(e.pointerId);
+      const hit = lyHit(e);
+      lyDrag = {x:e.clientX, y:e.clientY, hit, moved:false, a0: (hit!==null && hit===lySel && lySlots[hit]) ? {...adjOf(hit)} : null};
+    });
+    lyCanvas.addEventListener('pointermove', e=>{
+      if(!lyDrag) return;
+      const dx = e.clientX-lyDrag.x, dy = e.clientY-lyDrag.y;
+      if(!lyDrag.moved && Math.hypot(dx,dy) < 6) return;
+      lyDrag.moved = true;
+      if(!lyDrag.a0) return;
+      const rc = lyCanvas.getBoundingClientRect(), g = lyGeom();
+      const slotW = rc.width*g.SW/g.W, slotH = rc.height*g.SH/g.H;
+      const a = adjOf(lyDrag.hit);
+      a.ox = lyDrag.a0.ox + dx/slotW; a.oy = lyDrag.a0.oy + dy/slotH;
+      lyDraw(lyCanvas, 900, true);
+    });
+    lyCanvas.addEventListener('pointerup', e=>{
+      const d = lyDrag; lyDrag = null;
+      if(!d || d.moved) return;
+      lySel = (d.hit === lySel) ? null : d.hit; lyRefresh();
+    });
+    lyCanvas.addEventListener('pointercancel', ()=>{ lyDrag = null; });
+    document.getElementById('lyZoom').addEventListener('input', e=>{
+      if(lySel === null || !lySlots[lySel]) return;
+      adjOf(lySel).z = parseFloat(e.target.value); lyDraw(lyCanvas, 900, true);
+    });
+    document.getElementById('lyZoomReset').addEventListener('click', ()=>{
+      if(lySel === null) return; lyAdj[lySel] = null; document.getElementById('lyZoom').value = 1; lyDraw(lyCanvas, 900, true);
     });
     lyFile.addEventListener('change', ()=>{
       const f = lyFile.files && lyFile.files[0]; lyFile.value = '';
       if(!f || lySel === null) return;
       const i = lySel, u = URL.createObjectURL(f);
-      loadImg(u).then(img=>{ lySlots[i] = img; lySel = null; lyRefresh(); }).catch(()=> alert('사진을 불러오지 못했어요.'));
+      loadImg(u).then(img=>{ lySlots[i] = img; lyAdj[i] = null; lyRefresh(); }).catch(()=> alert('사진을 불러오지 못했어요.'));
     });
     function hideAllStages(){
       stopCamera();
       [el.stageUpload, el.stageCamera, el.stageResult, stageDeco, stageLy].forEach(x=>x.classList.add('hidden'));
-      document.querySelector('.card').classList.remove('cam-mode');
+      document.querySelector('.card').classList.remove('cam-mode','ly-mode');
     }
     window.__openLayout = ()=>{
-      hideAllStages(); stageLy.classList.remove('hidden'); setStep(1);
+      hideAllStages(); stageLy.classList.remove('hidden'); document.querySelector('.card').classList.add('ly-mode'); setStep(1);
       lySel = null; lyRefresh(); window.scrollTo(0,0);
     };
     function goHome(){ hideAllStages(); el.stageUpload.classList.remove('hidden'); setStep(1); window.__fromLayout = false; window.scrollTo(0,0); }
